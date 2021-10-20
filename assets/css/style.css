@@ -1,0 +1,24 @@
+.input-field textarea:focus+label {
+    color: #2196f3;
+}
+
+.row .input-field textarea:focus {
+    border-bottom: 1px solid #2196f3;
+    box-shadow: 0 1px 0 0 #2196f3;
+}
+
+.input-field label {
+    color: white;
+}
+
+.sidebar {
+    height: 100vh;
+}
+
+.output-field {
+    height: 100vh;
+}
+
+.card {
+    padding: 1%;
+}
