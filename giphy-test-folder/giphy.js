@@ -5,6 +5,7 @@ let displaySpace = $('#display-space')
 
 
 $('#search-term-button').on('click', function(event){
+    displaySpace.text('')
     event.preventDefault()
     fetchGiphy()
 })
@@ -33,6 +34,7 @@ fetch(giphy_url) //fetch request for giphy sticker
     let recipeCard = $('<div>')
 
     $(giphyElement).attr('src', giphyImage) //applies random giphy sticker to giphy html element
+    $(giphyElement).css('height', '50px')
     recipeCard.addClass('card')
 
     recipeCard.append(giphyElement) //this is a placeholder. how are we going to put this element on the page?
