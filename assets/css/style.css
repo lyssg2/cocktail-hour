@@ -1,22 +1,40 @@
-.input-field textarea:focus + label {
-    color: #2196f3;
-  }
-  
-  .row .input-field textarea:focus {
-    border-bottom: 1px solid #2196f3;
-    box-shadow: 0 1px 0 0 #2196f3;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Display&display=swap');
+html {
+    font-family: 'Noto Serif Display', serif;
+}
+
+.nav {
+    color: black;
+    height: 80px;
+    line-height: 30px;
+}
+
+#cocktail-input {
+    font-family: 'Noto Serif Display', serif;
+}
+
+.custom-align .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.custom-align .card-content {
+    flex: 1;
+    max-height: 100%;
+    align-items: center;
+    display: flex;
+    margin-bottom: 50px;
+}
 
 .input-field label {
     color: white;
 }
 
-.sidebar {
-    height: 100vh;
-}
-
 .output-field {
     height: 100vh;
+    max-width: 30%;
+    align-items: center;
 }
 
 .card {
