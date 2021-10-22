@@ -5,14 +5,16 @@ let outputField = $('.output-field')
 
 
 //input button for cocktails
-$('#cocktail-input-button').click(function (event) {
+
+$('#cocktail-input-button').click(function(event) {
     event.preventDefault()
     console.log('cocktail button clicked')
     getCocktail()
 })
 
 //input button for ingredients
-$('#ingredient-input-button').click(function (event) {
+
+$('#ingredient-input-button').click(function(event) {
     event.preventDefault()
     console.log('ingredient button clicked')
     getIngredient()
@@ -39,7 +41,9 @@ function getCocktail() {
             for (i = 0; i < data.drinks.length; i++) {
                 let cocktailName = data.drinks[i].strDrink
                 let cocktailInstructions = data.drinks[i].strInstructions
+
                 let cocktailImage = data.drinks[i].strDrinkThumb
+
                 let cocktailNameElement = $('<h5>')
                 let cocktailInstructionsElement = $('<p>')
                 let cocktailImageElement = $('<img>')
@@ -52,8 +56,9 @@ function getCocktail() {
                 cocktailImageElement.css('height', '200px')
                 recipeCard.addClass('card')
                 dividerElement.addClass('divider')
-
+              
                 recipeCard.append(cocktailNameElement, cocktailInstructionsElement)
+
 
                 for (x = 1; x <= 15; x++) {
                     let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()]
@@ -81,3 +86,4 @@ function capitalize(word) {
     let lower = word.toLowerCase()
     return word.charAt(0).toUpperCase() + lower.slice(1)
 }
+
