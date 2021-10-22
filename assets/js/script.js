@@ -57,16 +57,19 @@ function getCocktail() {
                 recipeCard.addClass('card')
                 dividerElement.addClass('divider')
               
-                recipeCard.append(cocktailNameElement, cocktailInstructionsElement)
-
+                recipeCard.append(cocktailNameElement)
 
                 for (x = 1; x <= 15; x++) {
                     let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()]
+                    let cocktailMeasurement = data.drinks[i]['strMeasure' + x.toString()]
                     cocktailIngredientElement = $('<p>')
                     cocktailIngredientElement.text(cocktailIngredient)
+                    
+                    if(cocktailMeasurement != null)
+                        cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
                     recipeCard.append(cocktailIngredientElement)
                 }
-                recipeCard.append(cocktailImageElement)
+                recipeCard.append(cocktailInstructionsElement, cocktailImageElement)
 
                 outputField.append(recipeCard)
             }
@@ -86,4 +89,3 @@ function capitalize(word) {
     let lower = word.toLowerCase()
     return word.charAt(0).toUpperCase() + lower.slice(1)
 }
-
