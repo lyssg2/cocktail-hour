@@ -5,7 +5,6 @@ let outputField = $('.output-field')
 
 
 //input button for cocktails
-
 $('#cocktail-input-button').click(function(event) {
     event.preventDefault()
     console.log('cocktail button clicked')
@@ -13,7 +12,6 @@ $('#cocktail-input-button').click(function(event) {
 })
 
 //input button for ingredients
-
 $('#ingredient-input-button').click(function(event) {
     event.preventDefault()
     console.log('ingredient button clicked')
@@ -58,7 +56,6 @@ function getCocktail() {
                 dividerElement.addClass('divider')
               
                 recipeCard.append(cocktailNameElement, cocktailInstructionsElement)
-
 
                 for (x = 1; x <= 15; x++) {
                     let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()]
