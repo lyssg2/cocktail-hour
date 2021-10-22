@@ -39,75 +39,90 @@ function getCocktail() {
             for (i = 0; i < data.drinks.length; i++) {
                 let cocktailName = data.drinks[i].strDrink
                 let cocktailInstructions = data.drinks[i].strInstructions
-                let cocktailImage = data.drinks[i].strImageSource
-                let cocktailIngredient1 = data.drinks[i].strIngredient1 //fix this mess
-                let cocktailIngredient2 = data.drinks[i].strIngredient2
-                let cocktailIngredient3 = data.drinks[i].strIngredient3
-                let cocktailIngredient4 = data.drinks[i].strIngredient4
-                let cocktailIngredient5 = data.drinks[i].strIngredient5
-                let cocktailIngredient6 = data.drinks[i].strIngredient6
-                let cocktailIngredient7 = data.drinks[i].strIngredient7
-                let cocktailIngredient8 = data.drinks[i].strIngredient8
-                let cocktailIngredient9 = data.drinks[i].strIngredient9
-                let cocktailIngredient10 = data.drinks[i].strIngredient10
-                let cocktailIngredient11 = data.drinks[i].strIngredient11
-                let cocktailIngredient12 = data.drinks[i].strIngredient12
-                let cocktailIngredient13 = data.drinks[i].strIngredient13
-                let cocktailIngredient14 = data.drinks[i].strIngredient14
-                let cocktailIngredient15 = data.drinks[i].strIngredient15
-        
+                let cocktailImage = data.drinks[i].strDrinkThumb
 
-                let cocktailNameElement = $('<h5>')
-                let cocktailInstructionsElement = $('<p>')
-                let cocktailImageElement = $('<img>')
-                let cocktailIngredient1Element = $('<p>') //fix this mess
-                let cocktailIngredient2Element = $('<p>')
-                let cocktailIngredient3Element = $('<p>')
-                let cocktailIngredient4Element = $('<p>')
-                let cocktailIngredient5Element = $('<p>')
-                let cocktailIngredient6Element = $('<p>')
-                let cocktailIngredient7Element = $('<p>')
-                let cocktailIngredient8Element = $('<p>')
-                let cocktailIngredient9Element = $('<p>')
-                let cocktailIngredient10Element = $('<p>')
-                let cocktailIngredient11Element = $('<p>')
-                let cocktailIngredient12Element = $('<p>')
-                let cocktailIngredient13Element = $('<p>')
-                let cocktailIngredient14Element = $('<p>')
-                let cocktailIngredient15Element = $('<p>')
-                let dividerElement = $('<div>')
-                let recipeCard = $('<div>')
 
-                cocktailNameElement.text(cocktailName)
-                cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
-                cocktailImageElement.attr('src', cocktailImage)
-                cocktailIngredient1Element.text(cocktailIngredient1) //fix this mess
-                cocktailIngredient2Element.text(cocktailIngredient2)
-                cocktailIngredient3Element.text(cocktailIngredient3)
-                cocktailIngredient4Element.text(cocktailIngredient4)
-                cocktailIngredient5Element.text(cocktailIngredient5)
-                cocktailIngredient6Element.text(cocktailIngredient6)
-                cocktailIngredient7Element.text(cocktailIngredient7)
-                cocktailIngredient8Element.text(cocktailIngredient8)
-                cocktailIngredient9Element.text(cocktailIngredient9)
-                cocktailIngredient10Element.text(cocktailIngredient10)
-                cocktailIngredient11Element.text(cocktailIngredient11)
-                cocktailIngredient12Element.text(cocktailIngredient12)
-                cocktailIngredient13Element.text(cocktailIngredient13)
-                cocktailIngredient14Element.text(cocktailIngredient14)
-                cocktailIngredient15Element.text(cocktailIngredient15)
-                recipeCard.addClass('card')
-                dividerElement.addClass('divider')
 
-                recipeCard.append(cocktailNameElement, dividerElement, cocktailInstructionsElement, dividerElement, cocktailIngredient1Element, dividerElement, cocktailIngredient2Element, dividerElement,
-                     cocktailIngredient3Element, dividerElement, cocktailIngredient4Element, dividerElement, cocktailIngredient5Element, dividerElement, cocktailIngredient6Element, dividerElement, cocktailIngredient7Element, dividerElement, cocktailIngredient8Element, dividerElement, 
-                     cocktailIngredient9Element, dividerElement, cocktailIngredient10Element, dividerElement, cocktailIngredient11Element, dividerElement, cocktailIngredient12Element, dividerElement, cocktailIngredient13Element, dividerElement, cocktailIngredient14Element, dividerElement, 
-                     cocktailIngredient15Element, dividerElement, cocktailImageElement)
-                outputField.append(recipeCard)
 
+
+             //fix this mess
+            // let cocktailIngredient2 = data.drinks[i].strIngredient2
+            // let cocktailIngredient3 = data.drinks[i].strIngredient3
+            // let cocktailIngredient4 = data.drinks[i].strIngredient4
+            // let cocktailIngredient5 = data.drinks[i].strIngredient5
+            // let cocktailIngredient6 = data.drinks[i].strIngredient6
+            // let cocktailIngredient7 = data.drinks[i].strIngredient7
+            // let cocktailIngredient8 = data.drinks[i].strIngredient8
+            // let cocktailIngredient9 = data.drinks[i].strIngredient9
+            // let cocktailIngredient10 = data.drinks[i].strIngredient10
+            // let cocktailIngredient11 = data.drinks[i].strIngredient11
+            // let cocktailIngredient12 = data.drinks[i].strIngredient12
+            // let cocktailIngredient13 = data.drinks[i].strIngredient13
+            // let cocktailIngredient14 = data.drinks[i].strIngredient14
+            // let cocktailIngredient15 = data.drinks[i].strIngredient15
+
+
+            let cocktailNameElement = $('<h5>')
+            let cocktailInstructionsElement = $('<p>')
+            let cocktailImageElement = $('<img>')
+            // let cocktailIngredient1Element = $('<p>') //fix this mess
+            // let cocktailIngredient2Element = $('<p>')
+            // let cocktailIngredient3Element = $('<p>')
+            // let cocktailIngredient4Element = $('<p>')
+            // let cocktailIngredient5Element = $('<p>')
+            // let cocktailIngredient6Element = $('<p>')
+            // let cocktailIngredient7Element = $('<p>')
+            // let cocktailIngredient8Element = $('<p>')
+            // let cocktailIngredient9Element = $('<p>')
+            // let cocktailIngredient10Element = $('<p>')
+            // let cocktailIngredient11Element = $('<p>')
+            // let cocktailIngredient12Element = $('<p>')
+            // let cocktailIngredient13Element = $('<p>')
+            // let cocktailIngredient14Element = $('<p>')
+            // let cocktailIngredient15Element = $('<p>')
+            let dividerElement = $('<div>')
+            let recipeCard = $('<div>')
+
+            cocktailNameElement.text(cocktailName)
+            cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
+            cocktailImageElement.attr('src', cocktailImage)
+            cocktailImageElement.css('height', '200px')
+            // cocktailIngredient1Element.text(cocktailIngredient1) //fix this mess
+            // cocktailIngredient2Element.text(cocktailIngredient2)
+            // cocktailIngredient3Element.text(cocktailIngredient3)
+            // cocktailIngredient4Element.text(cocktailIngredient4)
+            // cocktailIngredient5Element.text(cocktailIngredient5)
+            // cocktailIngredient6Element.text(cocktailIngredient6)
+            // cocktailIngredient7Element.text(cocktailIngredient7)
+            // cocktailIngredient8Element.text(cocktailIngredient8)
+            // cocktailIngredient9Element.text(cocktailIngredient9)
+            // cocktailIngredient10Element.text(cocktailIngredient10)
+            // cocktailIngredient11Element.text(cocktailIngredient11)
+            // cocktailIngredient12Element.text(cocktailIngredient12)
+            // cocktailIngredient13Element.text(cocktailIngredient13)
+            // cocktailIngredient14Element.text(cocktailIngredient14)
+            // cocktailIngredient15Element.text(cocktailIngredient15)
+            recipeCard.addClass('card')
+
+            dividerElement.addClass('divider')
+
+            // recipeCard.append(cocktailNameElement, dividerElement, cocktailInstructionsElement, dividerElement, cocktailIngredient1Element, dividerElement, cocktailIngredient2Element, dividerElement,
+            //     cocktailIngredient3Element, dividerElement, cocktailIngredient4Element, dividerElement, cocktailIngredient5Element, dividerElement, cocktailIngredient6Element, dividerElement, cocktailIngredient7Element, dividerElement, cocktailIngredient8Element, dividerElement,
+            //     cocktailIngredient9Element, dividerElement, cocktailIngredient10Element, dividerElement, cocktailIngredient11Element, dividerElement, cocktailIngredient12Element, dividerElement, cocktailIngredient13Element, dividerElement, cocktailIngredient14Element, dividerElement,
+            //     cocktailIngredient15Element, dividerElement, cocktailImageElement)
+            recipeCard.append(cocktailNameElement, cocktailInstructionsElement)
+
+            for (x = 1; x <= 15; x++) {
+                let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()]
+                cocktailIngredientElement = $('<p>')
+                cocktailIngredientElement.text(cocktailIngredient)
+                recipeCard.append(cocktailIngredientElement)
             }
-                    }
-                    )
+            recipeCard.append(cocktailImageElement)
+            
+            outputField.append(recipeCard)
+        }}
+        )
 
 }
 
