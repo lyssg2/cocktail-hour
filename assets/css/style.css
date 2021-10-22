@@ -1,11 +1,11 @@
-.input-field textarea:focus+label {
+.input-field textarea:focus + label {
     color: #2196f3;
-}
-
-.row .input-field textarea:focus {
+  }
+  
+  .row .input-field textarea:focus {
     border-bottom: 1px solid #2196f3;
     box-shadow: 0 1px 0 0 #2196f3;
-}
+  }
 
 .input-field label {
     color: white;

@@ -5,14 +5,22 @@ let outputField = $('.output-field')
 
 
 //input button for cocktails
+<<<<<<< HEAD
 $('#cocktail-input-button').click(function(event) {
+=======
+$('#cocktail-input-button').click(function (event) {
+>>>>>>> b8364b2829e2b006eed6ea2ca8f90f029dd5f013
     event.preventDefault()
     console.log('cocktail button clicked')
     getCocktail()
 })
 
 //input button for ingredients
+<<<<<<< HEAD
 $('#ingredient-input-button').click(function(event) {
+=======
+$('#ingredient-input-button').click(function (event) {
+>>>>>>> b8364b2829e2b006eed6ea2ca8f90f029dd5f013
     event.preventDefault()
     console.log('ingredient button clicked')
     getIngredient()
@@ -55,7 +63,11 @@ function getCocktail() {
                 let cocktailIngredient13 = data.drinks[i].strIngredient13
                 let cocktailIngredient14 = data.drinks[i].strIngredient14
                 let cocktailIngredient15 = data.drinks[i].strIngredient15
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> b8364b2829e2b006eed6ea2ca8f90f029dd5f013
 
                 let cocktailNameElement = $('<h5>')
                 let cocktailInstructionsElement = $('<p>')
@@ -100,6 +112,7 @@ function getCocktail() {
                 dividerElement.addClass('divider')
 
                 recipeCard.append(cocktailNameElement, dividerElement, cocktailInstructionsElement, dividerElement, cocktailIngredient1Element, dividerElement, cocktailIngredient2Element, dividerElement,
+<<<<<<< HEAD
                     cocktailIngredient3Element, dividerElement, cocktailIngredient4Element, dividerElement, cocktailIngredient5Element, dividerElement, cocktailIngredient6Element, dividerElement, cocktailIngredient7Element, dividerElement, cocktailIngredient8Element, dividerElement,
                     cocktailIngredient9Element, dividerElement, cocktailIngredient10Element, dividerElement, cocktailIngredient11Element, dividerElement, cocktailIngredient12Element, dividerElement, cocktailIngredient13Element, dividerElement, cocktailIngredient14Element, dividerElement,
                     cocktailIngredient15Element, dividerElement, cocktailImageElement)
@@ -107,6 +120,16 @@ function getCocktail() {
 
             }
         })
+=======
+                     cocktailIngredient3Element, dividerElement, cocktailIngredient4Element, dividerElement, cocktailIngredient5Element, dividerElement, cocktailIngredient6Element, dividerElement, cocktailIngredient7Element, dividerElement, cocktailIngredient8Element, dividerElement, 
+                     cocktailIngredient9Element, dividerElement, cocktailIngredient10Element, dividerElement, cocktailIngredient11Element, dividerElement, cocktailIngredient12Element, dividerElement, cocktailIngredient13Element, dividerElement, cocktailIngredient14Element, dividerElement, 
+                     cocktailIngredient15Element, dividerElement, cocktailImageElement)
+                outputField.append(recipeCard)
+
+            }
+                    }
+                    )
+>>>>>>> b8364b2829e2b006eed6ea2ca8f90f029dd5f013
 
 }
 
@@ -120,8 +143,12 @@ function getIngredient() {
 function capitalize(word) {
     let lower = word.toLowerCase()
     return word.charAt(0).toUpperCase() + lower.slice(1)
+<<<<<<< HEAD
 }
 
 // why is this not working
 
 // testing testing
+=======
+}
+>>>>>>> b8364b2829e2b006eed6ea2ca8f90f029dd5f013
