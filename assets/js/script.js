@@ -5,14 +5,27 @@ let outputField = $('.output-field')
 
 
 //input button for cocktails
-$('#cocktail-input-button').click(function(event) {
-    event.preventDefault()
-    console.log('cocktail button clicked')
-    getCocktail()
+$('#cocktail-input-button').click(function (event) {
+    if($('#cocktail-input').val()){
+        event.preventDefault()
+        console.log('cocktail button clicked')
+        outputField.text('')
+        getCocktail()
+        $('#cocktail-input').val('')
+}})
+
+//enter key press event - going to have to update this to account for 2 text areas. 
+$(document).keypress(function(event){
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13'){
+        outputField.text('')
+        getCocktail()
+        $('#cocktail-input').val('')
+    }
 })
 
 //input button for ingredients
-$('#ingredient-input-button').click(function(event) {
+$('#ingredient-input-button').click(function (event) {
     event.preventDefault()
     console.log('ingredient button clicked')
     getIngredient()
@@ -36,40 +49,46 @@ function getCocktail() {
         .then(data => {
             console.log(data)
 
-            for (i = 0; i < data.drinks.length; i++) {
-                let cocktailName = data.drinks[i].strDrink
-                let cocktailInstructions = data.drinks[i].strInstructions
+            if (data.drinks === null) {
+                let nullCard = $('<div>')
+                nullCard.addClass('card')
+                nullCard.text("Sorry, we don't have any recipes for that drink!")
+                outputField.append(nullCard)
+            }
+            else {
+                for (i = 0; i < data.drinks.length; i++) {
+                    let cocktailName = data.drinks[i].strDrink
+                    let cocktailInstructions = data.drinks[i].strInstructions
+                    let cocktailImage = data.drinks[i].strDrinkThumb
 
-                let cocktailImage = data.drinks[i].strDrinkThumb
+                    let cocktailNameElement = $('<h5>')
+                    let cocktailInstructionsElement = $('<p>')
+                    let cocktailImageElement = $('<img>')
+                    let recipeCard = $('<div>')
 
-                let cocktailNameElement = $('<h5>')
-                let cocktailInstructionsElement = $('<p>')
-                let cocktailImageElement = $('<img>')
-                let dividerElement = $('<div>')
-                let recipeCard = $('<div>')
+                    cocktailNameElement.text(cocktailName)
+                    cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
+                    cocktailImageElement.attr('src', cocktailImage)
+                    cocktailImageElement.css('height', '200px')
+                    recipeCard.addClass('card')
 
-                cocktailNameElement.text(cocktailName)
-                cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
-                cocktailImageElement.attr('src', cocktailImage)
-                cocktailImageElement.css('height', '200px')
-                recipeCard.addClass('card')
-                dividerElement.addClass('divider')
-              
-                recipeCard.append(cocktailNameElement)
 
-                for (x = 1; x <= 15; x++) {
-                    let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()]
-                    let cocktailMeasurement = data.drinks[i]['strMeasure' + x.toString()]
-                    cocktailIngredientElement = $('<p>')
-                    cocktailIngredientElement.text(cocktailIngredient)
-                    
-                    if(cocktailMeasurement != null)
-                        cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
-                    recipeCard.append(cocktailIngredientElement)
+                    recipeCard.append(cocktailNameElement)
+
+                    for (x = 1; x <= 15; x++) {
+                        let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()]
+                        let cocktailMeasurement = data.drinks[i]['strMeasure' + x.toString()]
+                        cocktailIngredientElement = $('<p>')
+                        cocktailIngredientElement.text(cocktailIngredient)
+
+                        if (cocktailMeasurement != null)
+                            cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
+                        recipeCard.append(cocktailIngredientElement)
+                    }
+                    recipeCard.append(cocktailInstructionsElement, cocktailImageElement)
+
+                    outputField.append(recipeCard)
                 }
-                recipeCard.append(cocktailInstructionsElement, cocktailImageElement)
-
-                outputField.append(recipeCard)
             }
         }
         )
