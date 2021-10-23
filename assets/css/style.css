@@ -3,6 +3,16 @@ html {
     font-family: 'Noto Serif Display', serif;
 }
 
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
 .nav {
     color: black;
     height: 80px;
@@ -24,6 +34,23 @@ html {
 
 .btn {
     font-family: 'Noto Serif Display', serif;
+}
+
+.page-footer {
+    padding: 5px;
+    line-height: 10px;
+    margin-bottom: 0;
+}
+
+li {
+    text-decoration: none;
+    float: left;
+    text-align: left;
+    padding-right: 10px;
+}
+
+ul {
+    list-style-type: none;
 }
 
 .flexbox {
