@@ -23,12 +23,17 @@ main {
     font-family: 'Noto Serif Display', serif;
 }
 
+#cocktail-input-2,
+#ingredient-input {
+    font-family: 'Noto Serif Display', serif;
+}
+
 .input-field label {
     color: white;
 }
 
 .img-head {
-    margin: 0;
+    margin: 10px 0;
     width: 100%;
 }
 
