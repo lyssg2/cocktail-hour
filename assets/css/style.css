@@ -17,6 +17,15 @@ html {
     color: white;
 }
 
+.img-head {
+    margin: 0;
+    width: 100%;
+}
+
+.btn {
+    font-family: 'Noto Serif Display', serif;
+}
+
 .flexbox {
     display: flex;
     flex-wrap: wrap;
