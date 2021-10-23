@@ -6,18 +6,19 @@ let outputField = $('.output-field')
 
 //input button for cocktails
 $('#cocktail-input-button').click(function (event) {
-    if($('#cocktail-input').val()){
+    if ($('#cocktail-input').val()) {
         event.preventDefault()
         console.log('cocktail button clicked')
         outputField.text('')
         getCocktail()
         $('#cocktail-input').val('')
-}})
+    }
+})
 
 //enter key press event - going to have to update this to account for 2 text areas. 
-$(document).keypress(function(event){
+$(document).keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
-    if(keycode == '13'){
+    if (keycode == '13') {
         outputField.text('')
         getCocktail()
         $('#cocktail-input').val('')
@@ -106,3 +107,15 @@ function capitalize(word) {
     let lower = word.toLowerCase()
     return word.charAt(0).toUpperCase() + lower.slice(1)
 }
+
+function init() {
+    let initSearch = JSON.parse(localStorage.getItem('initSearch'))
+    $('#cocktail-input').val(initSearch)
+    if (initSearch) {
+        outputField.text('')
+        getCocktail()
+        $('#cocktail-input').val('')
+    }
+}
+
+init()
