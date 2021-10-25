@@ -33,7 +33,18 @@ $(document).keypress(function (event) {
 $('#ingredient-input-button').click(function (event) {
     event.preventDefault()
     console.log('ingredient button clicked')
+    outputField.text('')
     getIngredient()
+})
+
+outputField.on('click', '.cocktail-link', function () {
+    // console.log('submit button clicked')
+    document.getElementById("cocktail-input").value = $(this).text()
+    outputField.text('')
+    getCocktail()
+    $('#cocktail-input').val('')
+
+
 })
 
 //call & display function for cocktails
@@ -78,10 +89,6 @@ function getCocktail() {
                     cocktailImageElement.attr('src', cocktailImage)
                     cocktailImageElement.css('height', '200px')
                     recipeCard.addClass('card')
-
-                    fetchImg()
-
-
                     recipeCard.append(cocktailNameElement)
 
                     for (x = 1; x <= 15; x++) {
@@ -106,8 +113,44 @@ function getCocktail() {
 
 //call & display function for ingredients
 function getIngredient() {
-    let ingredientCall = "www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + $('#ingredient-input').val()
-    console.log(ingredientCall)
+    let ingredientUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + $('#ingredient-input').val()
+    fetch(ingredientUrl)
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            } else if (response.status === 404) {
+                return Promise.reject('error 404')
+            } else {
+                return Promise.reject('some other error: ' + response.status)
+            }
+        })
+        .then(data => {
+            console.log(data)
+            for(i=0; i < data.drinks.length; i++){
+                let cocktailName = data.drinks[i].strDrink
+                let cocktailImage = data.drinks[i].strDrinkThumb
+
+                let cocktailNameElement = $('<h5>')
+                let clickMessage = $('<p>')
+                let cocktailImageElement = $('<img>')
+                let recipeCard = $('<div>')
+
+                cocktailNameElement.text(cocktailName)
+                clickMessage.text('Click Name For Recipe!')
+                cocktailNameElement.addClass('cocktail-link')
+                cocktailImageElement.attr('src', cocktailImage)
+                cocktailImageElement.css('height', '200px')
+                recipeCard.addClass('card')
+
+                recipeCard.append(clickMessage, cocktailNameElement, cocktailImageElement)
+                outputField.append(recipeCard)
+
+
+            }
+
+        })
+
+    console.log(ingredientUrl)
 }
 
 //this function capitalizes words. needs to be updated to do each word in a title (probably with .split() and a for loop to iterate through each word and .toUpperCase() it, then .join() it back together)
@@ -118,12 +161,19 @@ function capitalize(word) {
 
 function init() {
     let initSearch = JSON.parse(localStorage.getItem('initSearch'))
-    $('#cocktail-input').val(initSearch)
+    let initIngredient = JSON.parse(localStorage.getItem('initIngredient'))
+    
     if (initSearch) {
+        $('#cocktail-input').val(initSearch)
         outputField.text('')
         getCocktail()
         $('#cocktail-input').val('')
     }
+    else if (initIngredient){}
+        $('#ingredient-input').val(initIngredient)
+        outputField.text('')
+        getIngredient()
+        $('#ingredient-input').val('')
 }
 
 function fetchImg() {
@@ -159,7 +209,8 @@ function fetchImg() {
             $(pixabayElement).css('width', '50px')
             $(pixabayElement).css('border-radius', '50%')
 
-            recipeCard.append(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
+            return pixabayElement
+             //this is a placeholder. how are we going to put this element on the page?
         })}
 
 init()
