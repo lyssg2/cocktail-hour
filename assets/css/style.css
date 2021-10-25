@@ -13,6 +13,20 @@ main {
     flex: 1 0 auto;
 }
 
+p {
+    font-weight: bold;
+}
+
+
+/* #main-info {
+    width: 70%;
+    justify-content: center;
+} */
+
+.right-align {
+    margin: 0;
+}
+
 .nav {
     color: black;
     height: 80px;
@@ -34,7 +48,7 @@ main {
 
 .img-head {
     margin: 10px 0;
-    width: 100%;
+    width: 70%;
 }
 
 .btn {
