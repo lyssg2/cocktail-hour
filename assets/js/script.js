@@ -243,10 +243,10 @@ function fetchImg() {
 
             recipeCard.addClass('card')
 
-            recipeCard.append(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
-            displaySpace.append(recipeCard)
+           // recipeCard.append(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
+           // displaySpace.append(recipeCard)
 
-            return pixabayElement //this is a placeholder. how are we going to put this element on the page?
+           // return pixabayElement //this is a placeholder. how are we going to put this element on the page?
         })
 }
 init()
