@@ -12,6 +12,7 @@ $('#cocktail-input-button').click(function (event) {
         console.log('cocktail button clicked')
         outputField.text('')
         getCocktail()
+        //fetchImg() - might go here?
 
         console.log(iconImage + ' : iconImage')
         $('#cocktail-input').val('')
@@ -29,6 +30,7 @@ $(document).keypress(function (event) {
         }else if($('#ingredient-input').val()){
             outputField.text('')
             getIngredient()
+            //fetchImg() - might go here?
             $('#ingredient-input').val('')
         }
 
@@ -233,6 +235,11 @@ function fetchImg() {
             $(pixabayElement).css('height', '50px')
             $(pixabayElement).css('width', '50px')
             $(pixabayElement).css('border-radius', '50%')
+
+            recipeCard.addClass('card')
+
+            recipeCard.append(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
+            displaySpace.append(recipeCard)
 
             return pixabayElement
             //this is a placeholder. how are we going to put this element on the page?
