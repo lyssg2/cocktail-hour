@@ -33,7 +33,7 @@ $(document).keypress(function (event) {
             localStorage.setItem('initIngredient', null)
             window.location = 'secondpage.html'
             return false
-        }else if($('#ingredient-input').val()){
+        }else if($('#ingredient-input-2').val()){
             console.log('enter for ingredient')
             let ingredientData = $('#ingredient-input-2').val().toString()
             localStorage.setItem('initIngredient', JSON.stringify(ingredientData))
@@ -45,3 +45,12 @@ $(document).keypress(function (event) {
     }
 })
 
+window.addEventListener( "pageshow", function ( event ) {
+    var historyTraversal = event.persisted || 
+                           ( typeof window.performance != "undefined" && 
+                                window.performance.navigation.type === 2 );
+    if ( historyTraversal ) {
+      // Handle page restore.
+      window.location.reload();
+    }
+  });
