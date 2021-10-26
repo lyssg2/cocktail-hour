@@ -1,3 +1,2 @@
-# cuddly-garbanzo
+# Cocktail Hour
 group project test
-README CHANGES
