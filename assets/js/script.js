@@ -1,7 +1,7 @@
 //global vars here
-let outputField = $('.output-field')
-let iconImage = ''
-
+var outputField = $('.output-field')
+var iconImage = ''
+//fetchImg var may need to go here; testing other areas that I've indicated through comments throughout first.
 
 
 
@@ -12,7 +12,7 @@ $('#cocktail-input-button').click(function (event) {
         console.log('cocktail button clicked')
         outputField.text('')
         getCocktail()
-        //fetchImg() - might go here?
+        fetchImg()
 
         console.log(iconImage + ' : iconImage')
         $('#cocktail-input').val('')
@@ -61,6 +61,7 @@ function getCocktail() {
     let cocktailUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + $('#cocktail-input').val()
     console.log($('#cocktail-input.val') + ' cocktail input for getcocktail')
     console.log(cocktailUrl)
+    console.log(fetchImg())
 
     fetch(cocktailUrl)
         .then(response => {
@@ -91,6 +92,7 @@ function getCocktail() {
                     let cocktailInstructionsElement = $('<p>')
                     let cocktailImageElement = $('<img>')
                     let recipeCard = $('<div>')
+                    //fetchImg var may go here
 
                     cocktailNameElement.text(cocktailName)
                     cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
@@ -110,6 +112,7 @@ function getCocktail() {
                         recipeCard.append(cocktailIngredientElement)
                     }
                     recipeCard.append(cocktailInstructionsElement, cocktailImageElement)
+                    //fetchImg appending may go here
 
                     outputField.append(recipeCard)
                 }
@@ -159,6 +162,7 @@ function getIngredient() {
                     let cocktailNameElement = $('<h5>')
                     let clickMessage = $('<p>')
                     let cocktailImageElement = $('<img>')
+                    //fetchImg var may go here
                     let recipeCard = $('<div>')
 
                     cocktailNameElement.text(cocktailName)
@@ -170,6 +174,7 @@ function getIngredient() {
 
                     recipeCard.append(clickMessage, cocktailNameElement, cocktailImageElement)
                     outputField.append(recipeCard)
+                    //fetchImg append may go here
 
 
                 }
@@ -206,7 +211,7 @@ function init() {
 function fetchImg() {
 
     console.log($('#cocktail-input').val() + ' fetchimg cocktail input')
-    let pixabayUrl = "https://pixabay.com/api/?q=" + iconImage + "&key=23999957-6f13ba77eee3721df01fe7a9f"
+    var pixabayUrl = "https://pixabay.com/api/?q=" + iconImage + "&key=23999957-6f13ba77eee3721df01fe7a9f"
     fetch(pixabayUrl) //fetch request for pixabay sticker
         .then(response => {
             if (response.ok) {
@@ -221,15 +226,15 @@ function fetchImg() {
             }
         })
         .then(data => {
-            let randomNum = Math.floor(Math.random() * 20).toString() //random num to pick out of 50 pixabay stickers
+            var randomNum = Math.floor(Math.random() * 20).toString() //random num to pick out of 50 pixabay stickers
             console.log(randomNum)
-            let pixabayImage = data.hits[randomNum].webformatURL //target a random pixabay sticker
-            let hits = data.hits[0]
+            var pixabayImage = data.hits[randomNum].webformatURL //target a random pixabay sticker
+            var hits = data.hits[0]
             console.log(pixabayImage)
             console.log(hits)
 
-            let pixabayElement = $('<img>') //creates pixabay html element
-            let recipeCard = $('<div>')
+            var pixabayElement = $('<img>') //creates pixabay html element
+            var recipeCard = $('<div>')
 
             $(pixabayElement).attr('src', pixabayImage) //applies random pixabay sticker to pixabay html 
             $(pixabayElement).css('height', '50px')
@@ -241,9 +246,7 @@ function fetchImg() {
             recipeCard.append(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
             displaySpace.append(recipeCard)
 
-            return pixabayElement
-            //this is a placeholder. how are we going to put this element on the page?
+            return pixabayElement //this is a placeholder. how are we going to put this element on the page?
         })
 }
-
 init()
