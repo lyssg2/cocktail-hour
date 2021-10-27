@@ -96,6 +96,7 @@ ul {
     box-shadow: 0 0 1px rgba(0, 0, 0, 0);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .cocktail-link::before {
@@ -105,7 +106,7 @@ ul {
     left: 0;
     right: 0;
     bottom: 0;
-    background: #2098D1;
+    background: rgba(38, 166, 154, 255);
     height: 4px;
     -webkit-transform: translateY(4px);
     transform: translateY(4px);
