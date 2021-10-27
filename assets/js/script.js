@@ -2,7 +2,7 @@
 let outputField = $('.output-field')
 let iconImage = ''
 let searchHistoryField = $('#search-history')
-//fetchImg var may need to go here; testing other areas that I've indicated through comments throughout first.
+    //fetchImg var may need to go here; testing other areas that I've indicated through comments throughout first.
 async function fetchImg(recipeCard) {
 
     console.log($('#cocktail-input').val() + ' fetchimg cocktail input')
@@ -38,20 +38,15 @@ async function fetchImg(recipeCard) {
             recipeCard.addClass('card')
 
 
-           recipeCard.prepend(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
-           // displaySpace.append(recipeCard)
+            recipeCard.prepend(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
+                // displaySpace.append(recipeCard)
 
-           return pixabayElement //this is a placeholder. how are we going to put this element on the page?
+            return pixabayElement //this is a placeholder. how are we going to put this element on the page?
         })
 }
 
-$('#cocktail-link').hover(
-    function(){ $(this).addClass('hover') },
-    function(){ $(this).removeClass('hover') }
-)
-
 //input button for cocktails
-$('#cocktail-input-button').click(function (event) {
+$('#cocktail-input-button').click(function(event) {
     if ($('#cocktail-input').val()) {
         event.preventDefault()
         console.log('cocktail button clicked')
@@ -61,23 +56,23 @@ $('#cocktail-input-button').click(function (event) {
 
         console.log(iconImage + ' : iconImage')
         $('#cocktail-input').val('')
-        
+
     }
 })
 
 //enter key press event
-$(document).keypress(function (event) {
+$(document).keypress(function(event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
-        if($('#cocktail-input').val()){
+        if ($('#cocktail-input').val()) {
             outputField.text('')
             getCocktail()
             cocktailHistory()
             $('#cocktail-input').val('')
-        }else if($('#ingredient-input').val()){
+        } else if ($('#ingredient-input').val()) {
             outputField.text('')
             getIngredient()
-            //fetchImg() - might go here?
+                //fetchImg() - might go here?
             $('#ingredient-input').val('')
         }
 
@@ -85,7 +80,7 @@ $(document).keypress(function (event) {
 })
 
 //input button for ingredients
-$('#ingredient-input-button').click(function (event) {
+$('#ingredient-input-button').click(function(event) {
     event.preventDefault()
     console.log('ingredient button clicked')
     $("#ingredient-input").value = $(this).text()
@@ -95,7 +90,7 @@ $('#ingredient-input-button').click(function (event) {
 })
 
 //click event to get recipes from ingredient cards
-outputField.on('click', '.cocktail-link', function () {
+outputField.on('click', '.cocktail-link', function() {
     document.getElementById("cocktail-input").value = $(this).text()
     outputField.text('')
     getCocktail()
@@ -130,8 +125,7 @@ function getCocktail() {
                 nullCard.addClass('card')
                 nullCard.text("Sorry, we don't have any recipes for that drink!")
                 outputField.append(nullCard)
-            }
-            else {
+            } else {
                 for (i = 0; i < data.drinks.length; i++) {
                     let cocktailName = data.drinks[i].strDrink
                     let cocktailInstructions = data.drinks[i].strInstructions
@@ -141,14 +135,14 @@ function getCocktail() {
                     let cocktailInstructionsElement = $('<p>')
                     let cocktailImageElement = $('<img>')
                     let recipeCard = $('<div>')
-                    //fetchImg var may go here
+                        //fetchImg var may go here
 
 
                     cocktailNameElement.text(cocktailName)
                     cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
                     cocktailImageElement.attr('src', cocktailImage)
                     cocktailImageElement.css('height', '200px')
-                    
+
                     // recipeCard.addClass('card')
 
                     fetchImg(recipeCard)
@@ -166,13 +160,12 @@ function getCocktail() {
                         recipeCard.append(cocktailIngredientElement)
                     }
                     recipeCard.append(cocktailInstructionsElement, cocktailImageElement)
-                    //fetchImg appending may go here
+                        //fetchImg appending may go here
 
                     outputField.append(recipeCard)
                 }
             }
-        }
-        )
+        })
 
 }
 
@@ -181,15 +174,15 @@ function getIngredient() {
     let ingredientUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + $('#ingredient-input').val()
     fetch(ingredientUrl)
         .then(response => {
-            try{
-            if (response.ok) {
-                return response.json()
-            } else if (response.status === 404) {
-                return Promise.reject('error 404')
-            } else {
-                return Promise.reject('some other error: ' + response.status)
-            }}
-            catch(error){
+            try {
+                if (response.ok) {
+                    return response.json()
+                } else if (response.status === 404) {
+                    return Promise.reject('error 404')
+                } else {
+                    return Promise.reject('some other error: ' + response.status)
+                }
+            } catch (error) {
                 let errorMessage = 'Sorry, there is no recipe for that ingredient!'
                 let errorCard = $('<div>')
 
@@ -205,9 +198,7 @@ function getIngredient() {
                 nullCard.addClass('card')
                 nullCard.text("Sorry, we don't have any recipes for ingredient!")
                 outputField.append(nullCard)
-            }
-
-            else {
+            } else {
                 console.log('here is the data' + data)
                 for (i = 0; i < data.drinks.length; i++) {
                     let cocktailName = data.drinks[i].strDrink
@@ -216,7 +207,7 @@ function getIngredient() {
                     let cocktailNameElement = $('<h5>')
                     let clickMessage = $('<p>')
                     let cocktailImageElement = $('<img>')
-                    //fetchImg var may go here
+                        //fetchImg var may go here
                     let recipeCard = $('<div>')
 
                     cocktailNameElement.text(cocktailName)
@@ -227,7 +218,7 @@ function getIngredient() {
                     recipeCard.addClass('card')
                     recipeCard.append(clickMessage, cocktailNameElement, cocktailImageElement)
                     outputField.append(recipeCard)
-                    //fetchImg append may go here
+                        //fetchImg append may go here
 
                 }
             }
@@ -252,8 +243,7 @@ function init() {
         outputField.text('')
         getCocktail()
         $('#cocktail-input').val('')
-    }
-    else if (initIngredient) { }
+    } else if (initIngredient) {}
     $('#ingredient-input').val(initIngredient)
     outputField.text('')
     getIngredient()
@@ -264,46 +254,44 @@ function init() {
 
 // Cocktail search history function
 function cocktailHistory() {
-    
+
     console.log('Cocktail Storage')
     let key
-        
+
     // Condition to check for duplicate entries
     for (let i = 0; i < localStorage.length; i++) {
         let xinput = $('#cocktail-input').val()
         let key = localStorage.key(i)
-        let value = localStorage.getItem('cocktail_search_'+ i)
-        if (value === xinput) {
-        }
+        let value = localStorage.getItem('cocktail_search_' + i)
+        if (value === xinput) {}
     }
 
     // Write to storage user input into storage
     if (localStorage.getItem(key) != 0) {
         let x = localStorage.length
-        localStorage.setItem('cocktail_search_'+ x++, $('#cocktail-input').val())
+        localStorage.setItem('cocktail_search_' + x++, $('#cocktail-input').val())
 
     }
 }
 
 // Ingredient search history
 function ingredientHistory() {
-    
+
     console.log('Ingredient Storage')
     let key
-        
+
     // Condition to check for duplicate entries
     for (let y = 0; y < localStorage.length; y++) {
         let xinput = $('#ingredient-input').val()
         let key = localStorage.key(y)
-        let value = localStorage.getItem('ingredient_search_'+ y)
-        if (value === xinput) {
-        }
+        let value = localStorage.getItem('ingredient_search_' + y)
+        if (value === xinput) {}
     }
 
     // Write to storage user input into storage
     if (localStorage.getItem(key) != 0) {
         let z = localStorage.length
-        localStorage.setItem('ingredient_search_'+ z++, $('#ingredient-input').val())
+        localStorage.setItem('ingredient_search_' + z++, $('#ingredient-input').val())
         let ingredientHistoryItem = $('#ingredient-input').val()
         let ingredientHistoryElement = $('<p>')
         ingredientHistoryElement.text(ingredientHistoryItem)
