@@ -292,6 +292,5 @@ function ingredientHistory() {
     if (localStorage.getItem(key) != 0) {
         let z = localStorage.length
         localStorage.setItem('ingredient_search_'+ z++, $('#ingredient-input').val())
-
     }
 }
