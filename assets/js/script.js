@@ -1,7 +1,54 @@
 //global vars here
 let outputField = $('.output-field')
 let iconImage = ''
+let searchHistoryField = $('#search-history')
 //fetchImg var may need to go here; testing other areas that I've indicated through comments throughout first.
+async function fetchImg(recipeCard) {
+
+    console.log($('#cocktail-input').val() + ' fetchimg cocktail input')
+    var pixabayUrl = "https://pixabay.com/api/?q=" + iconImage + "&key=23999957-6f13ba77eee3721df01fe7a9f"
+    await fetch(pixabayUrl) //fetch request for pixabay sticker
+        .then(response => {
+            if (response.ok) {
+                console.log(pixabayUrl)
+                return response.json()
+            } else if (response.status === 404) { //404 error catch
+                console.log('Error: 404. Image URL not found' + response.status)
+                return Promise.reject('error 404')
+            } else {
+                console.log('Error' + response.status) //other error catch
+                return Promise.reject('error: ' + response.status)
+            }
+        })
+        .then(data => {
+            var randomNum = Math.floor(Math.random() * 20).toString() //random num to pick out of 50 pixabay stickers
+            console.log(randomNum)
+            var pixabayImage = data.hits[randomNum].webformatURL //target a random pixabay sticker
+            var hits = data.hits[0]
+            console.log(pixabayImage)
+            console.log(hits)
+
+            var pixabayElement = $('<img>') //creates pixabay html element
+
+            $(pixabayElement).attr('src', pixabayImage) //applies random pixabay sticker to pixabay html 
+            $(pixabayElement).css('height', '50px')
+            $(pixabayElement).css('width', '50px')
+            $(pixabayElement).css('border-radius', '50%')
+
+            recipeCard.addClass('card')
+
+
+           recipeCard.prepend(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
+           // displaySpace.append(recipeCard)
+
+           return pixabayElement //this is a placeholder. how are we going to put this element on the page?
+        })
+}
+
+$('#cocktail-link').hover(
+    function(){ $(this).addClass('hover') },
+    function(){ $(this).removeClass('hover') }
+)
 
 //input button for cocktails
 $('#cocktail-input-button').click(function (event) {
@@ -96,11 +143,16 @@ function getCocktail() {
                     let recipeCard = $('<div>')
                     //fetchImg var may go here
 
+
                     cocktailNameElement.text(cocktailName)
                     cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
                     cocktailImageElement.attr('src', cocktailImage)
                     cocktailImageElement.css('height', '200px')
-                    recipeCard.addClass('card')
+                    
+                    // recipeCard.addClass('card')
+
+                    fetchImg(recipeCard)
+
                     recipeCard.append(cocktailNameElement)
 
                     for (x = 1; x <= 15; x++) {
@@ -208,47 +260,7 @@ function init() {
     $('#ingredient-input').val('')
 }
 
-function fetchImg() {
 
-    console.log($('#cocktail-input').val() + ' fetchimg cocktail input')
-    var pixabayUrl = "https://pixabay.com/api/?q=" + iconImage + "&key=23999957-6f13ba77eee3721df01fe7a9f"
-    fetch(pixabayUrl) //fetch request for pixabay sticker
-        .then(response => {
-            if (response.ok) {
-                console.log(pixabayUrl)
-                return response.json()
-            } else if (response.status === 404) { //404 error catch
-                console.log('Error: 404. Image URL not found' + response.status)
-                return Promise.reject('error 404')
-            } else {
-                console.log('Error' + response.status) //other error catch
-                return Promise.reject('error: ' + response.status)
-            }
-        })
-        .then(data => {
-            var randomNum = Math.floor(Math.random() * 20).toString() //random num to pick out of 50 pixabay stickers
-            console.log(randomNum)
-            var pixabayImage = data.hits[randomNum].webformatURL //target a random pixabay sticker
-            var hits = data.hits[0]
-            console.log(pixabayImage)
-            console.log(hits)
-
-            var pixabayElement = $('<img>') //creates pixabay html element
-            var recipeCard = $('<div>')
-
-            $(pixabayElement).attr('src', pixabayImage) //applies random pixabay sticker to pixabay html 
-            $(pixabayElement).css('height', '50px')
-            $(pixabayElement).css('width', '50px')
-            $(pixabayElement).css('border-radius', '50%')
-
-            recipeCard.addClass('card')
-
-           // recipeCard.append(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
-           // displaySpace.append(recipeCard)
-
-           // return pixabayElement //this is a placeholder. how are we going to put this element on the page?
-        })
-}
 
 // Cocktail search history function
 function cocktailHistory() {
@@ -292,5 +304,12 @@ function ingredientHistory() {
     if (localStorage.getItem(key) != 0) {
         let z = localStorage.length
         localStorage.setItem('ingredient_search_'+ z++, $('#ingredient-input').val())
+        let ingredientHistoryItem = $('#ingredient-input').val()
+        let ingredientHistoryElement = $('<p>')
+        ingredientHistoryElement.text(ingredientHistoryItem)
+        searchHistoryField.prepend(ingredientHistoryElement)
+
     }
 }
+
+init()
