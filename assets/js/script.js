@@ -90,10 +90,12 @@ function getCocktail() {
                     let cocktailImageElement = $('<img>')
                     let recipeCard = $('<div>')
 
+
                     cocktailNameElement.text(cocktailName)
                     cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
                     cocktailImageElement.attr('src', cocktailImage)
                     cocktailImageElement.css('height', '200px')
+                    
                     recipeCard.addClass('card')
                     recipeCard.append(cocktailNameElement)
 
