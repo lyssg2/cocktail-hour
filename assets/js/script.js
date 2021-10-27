@@ -248,17 +248,15 @@ function cocktailHistory() {
     for (let i = 0; i < localStorage.length; i++) {
         let xinput = $('#cocktail-input').val()
         let key = localStorage.key(i)
-        let value = localStorage.getItem(key)
+        let value = localStorage.getItem('cocktail_search_'+ i)
         if (value === xinput) {
-            console.log('SAME')
-            return
         }
     }
 
     // Write to storage user input into storage
     if (localStorage.getItem(key) != 0) {
         let x = localStorage.length
-        localStorage.setItem('cocktail_search'+ '_'+ x++, $('#cocktail-input').val())
+        localStorage.setItem('cocktail_search_'+ x++, $('#cocktail-input').val())
 
     }
 }
@@ -270,20 +268,18 @@ function ingredientHistory() {
     let key
         
     // Condition to check for duplicate entries
-    for (let i = 0; i < localStorage.length; i++) {
+    for (let y = 0; y < localStorage.length; y++) {
         let xinput = $('#ingredient-input').val()
-        let key = localStorage.key(i)
-        let value = localStorage.getItem(key)
+        let key = localStorage.key(y)
+        let value = localStorage.getItem('ingredient_search_'+ y)
         if (value === xinput) {
-            console.log('SAME')
-            return
         }
     }
 
     // Write to storage user input into storage
     if (localStorage.getItem(key) != 0) {
-        let x = localStorage.length
-        localStorage.setItem('Ingredient_search'+ '_'+ x++, $('#ingredient-input').val())
+        let z = localStorage.length
+        localStorage.setItem('ingredient_search_'+ z++, $('#ingredient-input').val())
 
     }
 }
