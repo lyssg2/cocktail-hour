@@ -2,9 +2,6 @@
 let outputField = $('.output-field')
 let iconImage = ''
 
-
-
-
 //input button for cocktails
 $('#cocktail-input-button').click(function (event) {
     if ($('#cocktail-input').val()) {
@@ -12,9 +9,10 @@ $('#cocktail-input-button').click(function (event) {
         console.log('cocktail button clicked')
         outputField.text('')
         getCocktail()
-
+        cocktailHistory()
         console.log(iconImage + ' : iconImage')
         $('#cocktail-input').val('')
+        
     }
 })
 
@@ -25,6 +23,7 @@ $(document).keypress(function (event) {
         if($('#cocktail-input').val()){
             outputField.text('')
             getCocktail()
+            cocktailHistory()
             $('#cocktail-input').val('')
         }else if($('#ingredient-input').val()){
             outputField.text('')
@@ -39,8 +38,10 @@ $(document).keypress(function (event) {
 $('#ingredient-input-button').click(function (event) {
     event.preventDefault()
     console.log('ingredient button clicked')
+    $("#ingredient-input").value = $(this).text()
     outputField.text('')
     getIngredient()
+    ingredientHistory()
 })
 
 //click event to get recipes from ingredient cards
@@ -48,8 +49,8 @@ outputField.on('click', '.cocktail-link', function () {
     document.getElementById("cocktail-input").value = $(this).text()
     outputField.text('')
     getCocktail()
+    ingredientHistory()
     $('#cocktail-input').val('')
-
 
 })
 
@@ -165,10 +166,8 @@ function getIngredient() {
                     cocktailImageElement.attr('src', cocktailImage)
                     cocktailImageElement.css('height', '200px')
                     recipeCard.addClass('card')
-
                     recipeCard.append(clickMessage, cocktailNameElement, cocktailImageElement)
                     outputField.append(recipeCard)
-
 
                 }
             }
@@ -239,4 +238,52 @@ function fetchImg() {
         })
 }
 
-init()
+// Cocktail search history function
+function cocktailHistory() {
+    
+    console.log('Cocktail Storage')
+    let key
+        
+    // Condition to check for duplicate entries
+    for (let i = 0; i < localStorage.length; i++) {
+        let xinput = $('#cocktail-input').val()
+        let key = localStorage.key(i)
+        let value = localStorage.getItem(key)
+        if (value === xinput) {
+            console.log('SAME')
+            return
+        }
+    }
+
+    // Write to storage user input into storage
+    if (localStorage.getItem(key) != 0) {
+        let x = localStorage.length
+        localStorage.setItem('cocktail_search'+ '_'+ x++, $('#cocktail-input').val())
+
+    }
+}
+
+// Ingredient search history
+function ingredientHistory() {
+    
+    console.log('Ingredient Storage')
+    let key
+        
+    // Condition to check for duplicate entries
+    for (let i = 0; i < localStorage.length; i++) {
+        let xinput = $('#ingredient-input').val()
+        let key = localStorage.key(i)
+        let value = localStorage.getItem(key)
+        if (value === xinput) {
+            console.log('SAME')
+            return
+        }
+    }
+
+    // Write to storage user input into storage
+    if (localStorage.getItem(key) != 0) {
+        let x = localStorage.length
+        localStorage.setItem('Ingredient_search'+ '_'+ x++, $('#ingredient-input').val())
+
+    }
+}
