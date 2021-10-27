@@ -1,4 +1,7 @@
 A transplant from the Midwest to the Pacific Northwest, Megan has been in The Industry(TM) for more than an hour. 
 Now she's working hard at becoming a full-time web developer, by helping to create such incredible web apps
 as this one!
+
+Check out her <a href="https://mteubnerfoster.github.io/mtf-portfolio/">portfolio</a> to learn more about her and see what else she's worked on.
 Reach out to her <a href="mailto:mteubnerfoster@gmail.com">here</a> if you'd like to start a conversation.
+
