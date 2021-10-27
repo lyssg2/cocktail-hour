@@ -45,7 +45,7 @@ async function fetchImg(recipeCard) {
         })
 }
 
-$('#cocktail-link').hover(
+$('.cocktail-link').hover(
     function(){ $(this).addClass('hover') },
     function(){ $(this).removeClass('hover') }
 )
