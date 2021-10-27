@@ -44,7 +44,6 @@ async function fetchImg(recipeCard) {
 }
 
 
-)
 
 //input button for cocktails
 $('#cocktail-input-button').click(function (event) {
