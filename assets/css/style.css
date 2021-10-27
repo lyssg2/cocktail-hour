@@ -32,7 +32,8 @@ p {
 }
 
 #cocktail-input-2,
-#ingredient-input {
+#ingredient-input,
+#ingredient-input-2 {
     font-family: 'Spectral', serif;
 }
 
@@ -84,7 +85,7 @@ ul {
 }
 
 .card {
-    padding: 1%;
+    padding: 5%;
 }
 
 .cocktail-link {
