@@ -37,16 +37,14 @@ async function fetchImg(recipeCard) {
             recipeCard.addClass('card')
 
             recipeCard.prepend(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
-            // displaySpace.append(recipeCard)
+                // displaySpace.append(recipeCard)
 
             return pixabayElement //this is a placeholder. how are we going to put this element on the page?
         })
 }
 
-
-
 //input button for cocktails
-$('#cocktail-input-button').click(function (event) {
+$('#cocktail-input-button').click(function(event) {
     if ($('#cocktail-input').val()) {
         event.preventDefault()
         console.log('cocktail button clicked')
@@ -61,7 +59,7 @@ $('#cocktail-input-button').click(function (event) {
 })
 
 //enter key press event
-$(document).keypress(function (event) {
+$(document).keypress(function(event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
         if ($('#cocktail-input').val()) {
@@ -72,7 +70,7 @@ $(document).keypress(function (event) {
         } else if ($('#ingredient-input').val()) {
             outputField.text('')
             getIngredient()
-            //fetchImg() - might go here?
+                //fetchImg() - might go here?
             $('#ingredient-input').val('')
         }
 
@@ -80,7 +78,7 @@ $(document).keypress(function (event) {
 })
 
 //input button for ingredients
-$('#ingredient-input-button').click(function (event) {
+$('#ingredient-input-button').click(function(event) {
     event.preventDefault()
     console.log('ingredient button clicked')
     $("#ingredient-input").value = $(this).text()
@@ -90,7 +88,7 @@ $('#ingredient-input-button').click(function (event) {
 })
 
 //click event to get recipes from ingredient cards
-outputField.on('click', '.cocktail-link', function () {
+outputField.on('click', '.cocktail-link', function() {
     document.getElementById("cocktail-input").value = $(this).text()
     outputField.text('')
     getCocktail()
@@ -125,8 +123,7 @@ function getCocktail() {
                 nullCard.addClass('card')
                 nullCard.text("Sorry, we don't have any recipes for that drink!")
                 outputField.append(nullCard)
-            }
-            else {
+            } else {
                 for (i = 0; i < data.drinks.length; i++) {
                     let cocktailName = data.drinks[i].strDrink
                     let cocktailInstructions = data.drinks[i].strInstructions
@@ -162,8 +159,7 @@ function getCocktail() {
                     outputField.append(recipeCard)
                 }
             }
-        }
-        )
+        })
 
 }
 
@@ -180,8 +176,7 @@ function getIngredient() {
                 } else {
                     return Promise.reject('some other error: ' + response.status)
                 }
-            }
-            catch (error) {
+            } catch (error) {
                 let errorMessage = 'Sorry, there is no recipe for that ingredient!'
                 let errorCard = $('<div>')
 
@@ -197,9 +192,7 @@ function getIngredient() {
                 nullCard.addClass('card')
                 nullCard.text("Sorry, we don't have any recipes for ingredient!")
                 outputField.append(nullCard)
-            }
-
-            else {
+            } else {
                 console.log('here is the data' + data)
                 for (i = 0; i < data.drinks.length; i++) {
                     let cocktailName = data.drinks[i].strDrink
@@ -257,8 +250,7 @@ function init() {
         outputField.text('')
         getCocktail()
         $('#cocktail-input').val('')
-    }
-    else if (initIngredient) { }
+    } else if (initIngredient) {}
     $('#ingredient-input').val(initIngredient)
     outputField.text('')
     getIngredient()
@@ -276,8 +268,7 @@ function cocktailHistory() {
         let xinput = $('#cocktail-input').val()
         let key = localStorage.key(i)
         let value = localStorage.getItem('cocktail_search_' + i)
-        if (value === xinput) {
-        }
+        if (value === xinput) {}
     }
 
     // Write to storage user input into storage
@@ -299,8 +290,7 @@ function ingredientHistory() {
         let xinput = $('#ingredient-input').val()
         let key = localStorage.key(y)
         let value = localStorage.getItem('ingredient_search_' + y)
-        if (value === xinput) {
-        }
+        if (value === xinput) {}
     }
 
     // Write to storage user input into storage
