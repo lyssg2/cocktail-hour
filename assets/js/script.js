@@ -2,7 +2,6 @@
 let outputField = $('.output-field')
 let iconImage = ''
 let searchHistoryField = $('#search-history')
-    //fetchImg var may need to go here; testing other areas that I've indicated through comments throughout first.
 async function fetchImg(recipeCard) {
 
     console.log($('#cocktail-input').val() + ' fetchimg cocktail input')
@@ -37,13 +36,17 @@ async function fetchImg(recipeCard) {
 
             recipeCard.addClass('card')
 
-
             recipeCard.prepend(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
                 // displaySpace.append(recipeCard)
 
             return pixabayElement //this is a placeholder. how are we going to put this element on the page?
         })
 }
+
+$('#cocktail-link').hover(
+    function() { $(this).addClass('hover') },
+    function() { $(this).removeClass('hover') }
+)
 
 //input button for cocktails
 $('#cocktail-input-button').click(function(event) {
@@ -135,8 +138,6 @@ function getCocktail() {
                     let cocktailInstructionsElement = $('<p>')
                     let cocktailImageElement = $('<img>')
                     let recipeCard = $('<div>')
-                        //fetchImg var may go here
-
 
                     cocktailNameElement.text(cocktailName)
                     cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
@@ -160,8 +161,6 @@ function getCocktail() {
                         recipeCard.append(cocktailIngredientElement)
                     }
                     recipeCard.append(cocktailInstructionsElement, cocktailImageElement)
-                        //fetchImg appending may go here
-
                     outputField.append(recipeCard)
                 }
             }
@@ -207,7 +206,6 @@ function getIngredient() {
                     let cocktailNameElement = $('<h5>')
                     let clickMessage = $('<p>')
                     let cocktailImageElement = $('<img>')
-                        //fetchImg var may go here
                     let recipeCard = $('<div>')
 
                     cocktailNameElement.text(cocktailName)
@@ -216,9 +214,23 @@ function getIngredient() {
                     cocktailImageElement.attr('src', cocktailImage)
                     cocktailImageElement.css('height', '200px')
                     recipeCard.addClass('card')
+                    fetchImg(recipeCard)
+
+                    recipeCard.append(cocktailNameElement)
+
+                    for (x = 1; x <= 15; x++) {
+                        let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()]
+                        let cocktailMeasurement = data.drinks[i]['strMeasure' + x.toString()]
+                        cocktailIngredientElement = $('<p>')
+                        cocktailIngredientElement.text(cocktailIngredient)
+
+                        if (cocktailMeasurement != null)
+                            cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
+                        recipeCard.append(cocktailIngredientElement)
+                    }
+
                     recipeCard.append(clickMessage, cocktailNameElement, cocktailImageElement)
                     outputField.append(recipeCard)
-                        //fetchImg append may go here
 
                 }
             }
@@ -249,8 +261,6 @@ function init() {
     getIngredient()
     $('#ingredient-input').val('')
 }
-
-
 
 // Cocktail search history function
 function cocktailHistory() {
