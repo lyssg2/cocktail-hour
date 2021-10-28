@@ -31,7 +31,6 @@ async function fetchImg(recipeCard) {
             var hits = data.hits[0]
 
 
-            var pixabayElement = $('<img>') //creates pixabay html element
 
             $(pixabayElement).attr('src', pixabayImage) //applies random pixabay sticker to pixabay html 
             $(pixabayElement).css('height', '50px')
@@ -53,12 +52,9 @@ $('#cocktail-input-button').click(function (event) {
         event.preventDefault()
         console.log('cocktail button clicked')
         outputField.text('')
-        getCocktail()
-        cocktailHistory()
-
-        console.log(iconImage + ' : iconImage')
-        $('#cocktail-input').val('')
-
+        getCocktail() //runs cocktail function
+        cocktailHistory() //adds search to local history /search history
+        $('#cocktail-input').val('') //clears search field
     }
 })
 
@@ -66,12 +62,14 @@ $('#cocktail-input-button').click(function (event) {
 $(document).keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
-        if ($('#cocktail-input').val()) {
+        if ($('#cocktail-input').val()) { //acts like button click for cocktail search
+            event.preventDefault()
             outputField.text('')
             getCocktail()
             cocktailHistory()
             $('#cocktail-input').val('')
-        } else if ($('#ingredient-input').val()) {
+        } else if ($('#ingredient-input').val()) { //acts like button click for ingredient search
+            event.preventDefault()
             outputField.text('')
             getIngredient()
             ingredientHistory()
@@ -85,39 +83,74 @@ $(document).keypress(function (event) {
 $('#ingredient-input-button').click(function (event) {
     event.preventDefault()
     console.log('ingredient button clicked')
-    // $("#ingredient-input").value = $(this).text()
     outputField.text('')
-    getIngredient()
-    ingredientHistory()
-    $('#ingredient-input').val('')
+    getIngredient() //runs ingredient function
+    ingredientHistory() //adds search to local history / search history
+    $('#ingredient-input').val('') //clears search field
 })
 
 //click event to get recipes from ingredient cards
 outputField.on('click', '.cocktail-link', function () {
     document.getElementById("cocktail-input").value = $(this).text()
     outputField.text('')
-    getCocktail()
-    cocktailHistory()
-    $('#cocktail-input').val('')
+    getCocktail() //runs cocktail function
+    cocktailHistory() //adds search to local history / search history
+    $('#cocktail-input').val('') //clears search field
 
 })
 
-//click event to get recipes from ingredient cards
+//click event to get recipes from ingredient cards & search history
 searchHistoryField.on('click', '.cocktail-link', function () {
-    document.getElementById("cocktail-input").value = $(this).text()
+    document.getElementById("cocktail-input").value = $(this).text() //sets cocktail input to search
     outputField.text('')
-    getCocktail()
+    getCocktail() //runs cocktail function
     $('#cocktail-input').val('')
 
 })
 
+//click event to put ingredients from search history onto page
 searchHistoryField.on('click', '.ingredient-link', function () {
-    document.getElementById("ingredient-input").value = $(this).text()
+    document.getElementById("ingredient-input").value = $(this).text() //sets ingredient input to search
     outputField.text('')
-    getIngredient()
+    getIngredient() //runs ingredient function
     $('#ingredient-input').val('')
 
 })
+
+async function fetchImg(recipeCard) { //function to create an icon from a pixabay image
+
+    var pixabayUrl = "https://pixabay.com/api/?q=" + iconImage + "&key=23999957-6f13ba77eee3721df01fe7a9f"
+    await fetch(pixabayUrl) //fetch request for pixabay sticker
+        .then(response => {
+            if (response.ok) {
+                return response.json()
+            } else if (response.status === 404) { //404 error catch
+                console.log('Error: 404. Image URL not found' + response.status)
+                return Promise.reject('error 404')
+            } else {
+                console.log('Error' + response.status) //other error catch
+                return Promise.reject('error: ' + response.status)
+            }
+        })
+        .then(data => {
+            var randomNum = Math.floor(Math.random() * 20).toString() //random num to pick out of 20 pixabay stickers
+            var pixabayImage = data.hits[randomNum].webformatURL //target a random pixabay sticker
+            var hits = data.hits[0]
+
+            var pixabayElement = $('<img>') //creates pixabay html element
+
+            $(pixabayElement).attr('src', pixabayImage) //applies random pixabay sticker to pixabay html 
+            $(pixabayElement).css('height', '50px')
+            $(pixabayElement).css('width', '50px')
+            $(pixabayElement).css('border-radius', '50%')
+
+
+
+            recipeCard.prepend(pixabayElement) 
+
+            return pixabayElement
+        })
+}
 
 //call & display function for cocktails
 function getCocktail() {
@@ -125,9 +158,9 @@ function getCocktail() {
     let cocktailUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + $('#cocktail-input').val()
     fetch(cocktailUrl)
         .then(response => {
-            if (response.ok) {
+            if (response.ok) { 
                 return response.json()
-            } else if (response.status === 404) {
+            } else if (response.status === 404) { //error catches here
                 return Promise.reject('error 404')
             } else {
                 return Promise.reject('some other error: ' + response.status)
@@ -136,25 +169,23 @@ function getCocktail() {
         .then(data => {
 
 
-            if (data.drinks === null) {
+            if (data.drinks === null) { //creates 'not found' message if no cocktail is found
                 let nullCard = $('<div>')
-                nullCard.addClass('card')
+                nullCard.addClass('card') 
                 nullCard.text("Sorry, we don't have any recipes for that drink!")
                 outputField.append(nullCard)
             } else {
                 for (i = 0; i < data.drinks.length; i++) {
-                    let cocktailName = data.drinks[i].strDrink
+                    let cocktailName = data.drinks[i].strDrink //creates cocktail data
                     let cocktailInstructions = data.drinks[i].strInstructions
                     let cocktailImage = data.drinks[i].strDrinkThumb
 
-                    let cocktailNameElement = $('<h5>')
+                    let cocktailNameElement = $('<h5>') //creates cocktail HTML elements
                     let cocktailInstructionsElement = $('<p>')
                     let cocktailImageElement = $('<img>')
                     let recipeCard = $('<div>')
 
-
-                    recipeCard.addClass('card')
-                    cocktailNameElement.text(cocktailName)
+                    cocktailNameElement.text(cocktailName) //populates HTML elements with data
                     cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
                     cocktailImageElement.attr('src', cocktailImage)
                     cocktailImageElement.css('height', '200px')
@@ -179,10 +210,9 @@ function getCocktail() {
                         $(shoppingButton).attr('ingredient', cocktailIngredient + ": " + cocktailMeasurement)
                         shoppingButton.text('Add to Shopping List')
 
-                        if (cocktailMeasurement != null) {
+                        if (cocktailMeasurement) {
                             cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
                             recipeCard.append(cocktailIngredientElement, shoppingButton)
-
                         }
                         recipeCard.append(cocktailInstructionsElement, cocktailImageElement)
                         outputField.append(recipeCard)
@@ -265,9 +295,10 @@ function getIngredient() {
                         cocktailIngredientElement = $('<p>')
                         cocktailIngredientElement.text(cocktailIngredient)
 
-                        if (cocktailMeasurement != null)
+                        if (cocktailMeasurement != null){
                             cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
                         recipeCard.append(cocktailIngredientElement)
+                        }
                     }
 
                     recipeCard.append(clickMessage, cocktailNameElement, cocktailImageElement)
