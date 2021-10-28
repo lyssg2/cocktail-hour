@@ -27,8 +27,7 @@ Required program(s) needed is any common internet browser with Javascript enable
 
 ### Where to find Cocktail App
 
-The app can be found at URL below
-https://lyssg2.github.io/cocktail-hour/
+The app can be found here: https://lyssg2.github.io/cocktail-hour/
 
 ## Screenshot
 
@@ -37,17 +36,13 @@ https://lyssg2.github.io/cocktail-hour/
 
 ## Authors
 
-Alyssa (Lyss) Garcia
-https://lyssg2.github.io/Portfolio/ 
+[Alyssa (Lyss) Garcia](https://lyssg2.github.io/Portfolio/)
 
-Justin Meredith 
-https://github.com/JustinM099
+[Justin Meredith](https://justinm099.github.io/justin-meredith-portfolio/)
 
-Megan Teubner-Foster
-https://github.com/mteubnerfoster
+[Robert Sternik](hhttps://rsternik.github.io/Homework_Portfolio/)
 
-Robert Sternik
-https://github.com/rsternik
+[Megan Teubner-Foster](https://mteubnerfoster.github.io/mtf-portfolio)
 
 
 ## Version History
