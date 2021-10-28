@@ -135,6 +135,16 @@ ul {
     overflow: hidden;
 }
 
+.selfie {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    margin-left: 10px;
+    margin-right: auto;
+    margin-top: 7px;
+    border: 2px solid;
+}
+
 .ingredient-link::before {
     content: "";
     position: absolute;
