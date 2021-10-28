@@ -290,77 +290,152 @@ function init() {
     }
 }
 
-// Cocktail search history function
+// Cocktail search history
 function cocktailHistory() {
 
-    console.log('Cocktail Storage')
-    let key
+    // local varaiables
+    let uInput = $('#cocktail-input').val()
+
+    // Check for existing local storage object and create if none.
+    if (!localStorage.getItem('cocktailObject')) {
+        console.log('Local Storage not cocktail')
+        localStorage.setItem('cocktailObject', [JSON.stringify({ cocktailSearch: [] })])
+
+    }
+
+    // Pull search history into tempObject
+    let tempObject = JSON.parse(localStorage.getItem('cocktailObject'))
+    console.log(tempObject.cocktailSearch.length)
 
     // Condition to check for duplicate entries
-    for (let i = 0; i < localStorage.length; i++) {
-        let xinput = $('#cocktail-input').val()
-        let key = localStorage.key(i)
-        let value = localStorage.getItem('cocktail_search_' + i)
-        if (value === xinput) { }
+    for (let z = 0; z < tempObject.cocktailSearch.length; z++) {
+        console.log('hello')
+
+        let value = tempObject.cocktailSearch[z]
+        console.log(value)
+        if (value === uInput) {
+            console.log('same')
+            return
+        }
     }
 
-    // Write to storage user input into storage
-    if (localStorage.getItem(key) != 0) {
-        let x = localStorage.length
-        localStorage.setItem('cocktail_search_' + x++, $('#cocktail-input').val())
+    // Inject user input into tempObject
+    tempObject.cocktailSearch.push($('#cocktail-input').val())
 
-        let cocktailHistoryItem = capitalize($('#cocktail-input').val())
-        let cocktailHistoryElement = $('<h5>')
+    // Write tempObject back to storage
+    localStorage.setItem('cocktailObject', [JSON.stringify({ cocktailSearch: tempObject.cocktailSearch })])
 
-        let cocktailHistoryCard = $('<div>')
-        cocktailHistoryCard.addClass('card')
-        cocktailHistoryCard.css('text-align', 'center')
-        cocktailHistoryCard.addClass('col')
-        cocktailHistoryCard.addClass('s12')
-        cocktailHistoryElement.addClass('cocktail-link')
+    // Create and define search history elements
+    let cocktailHistoryElement = $('<h5>')
+    let cocktailHistoryCard = $('<div>')
+    cocktailHistoryCard.addClass('card')
+    cocktailHistoryCard.css('text-align', 'center')
+    cocktailHistoryCard.addClass('col')
+    cocktailHistoryCard.addClass('s12')
+    cocktailHistoryElement.addClass('cocktail-link')
+    cocktailHistoryElement.text(uInput)
 
-        cocktailHistoryElement.text(cocktailHistoryItem)
-
-        cocktailHistoryCard.append(cocktailHistoryElement)
-        searchHistoryField.prepend(cocktailHistoryCard)
-
-    }
+    //Append search history to page 
+    cocktailHistoryCard.append(cocktailHistoryElement)
+    searchHistoryField.prepend(cocktailHistoryCard)
 }
 
 // Ingredient search history
 function ingredientHistory() {
 
-    console.log('Ingredient Storage')
-    let key
+    // local varaiables
+    let uInput = $('#ingredient-input').val()
+
+    // Check for existing local storage object and create if none.
+    if (!localStorage.getItem('ingredientObject')) {
+        console.log('Local Storage not ingredient')
+        localStorage.setItem('ingredientObject', [JSON.stringify({ ingredientSearch: [] })])
+
+    }
+
+    // Pull search history into tempObject
+    let tempObject = JSON.parse(localStorage.getItem('ingredientObject'))
+    console.log(tempObject.ingredientSearch.length)
 
     // Condition to check for duplicate entries
-    for (let y = 0; y < localStorage.length; y++) {
-        let xinput = $('#ingredient-input').val()
-        let key = localStorage.key(y)
-        let value = localStorage.getItem('ingredient_search_' + y)
-        if (value === xinput) { }
+    for (let z = 0; z < tempObject.ingredientSearch.length; z++) {
+        console.log('hello')
+
+        let value = tempObject.ingredientSearch[z]
+        console.log(value)
+        if (value === uInput) {
+            console.log('same')
+            return
+        }
     }
 
-    // Write to storage user input into storage
-    if (localStorage.getItem(key) != 0) {
-        let z = localStorage.length
-        localStorage.setItem('ingredient_search_' + z++, $('#ingredient-input').val())
-        let ingredientHistoryItem = capitalize($('#ingredient-input').val())
-        let ingredientHistoryElement = $('<h5>')
+    // Inject user input into tempObject
+    tempObject.ingredientSearch.push($('#ingredient-input').val())
 
-        let ingredientHistoryCard = $('<div>')
-        ingredientHistoryCard.addClass('card')
-        ingredientHistoryCard.css('text-align', 'center')
-        ingredientHistoryCard.addClass('col')
-        ingredientHistoryCard.addClass('s12')
-        ingredientHistoryElement.addClass('ingredient-link')
+    // Write tempObject back to storage
+    localStorage.setItem('ingredientObject', [JSON.stringify({ ingredientSearch: tempObject.ingredientSearch })])
 
-        ingredientHistoryElement.text(ingredientHistoryItem)
+    // Create and define search history page elements
+    let ingredientHistoryItem = capitalize($('#ingredient-input').val())
+    let ingredientHistoryElement = $('<h5>')
+    let ingredientHistoryCard = $('<div>')
+    ingredientHistoryCard.addClass('card')
+    ingredientHistoryCard.css('text-align', 'center')
+    ingredientHistoryCard.addClass('col')
+    ingredientHistoryCard.addClass('s12')
+    ingredientHistoryElement.addClass('ingredient-link')
 
-        ingredientHistoryCard.append(ingredientHistoryElement)
-        searchHistoryField.prepend(ingredientHistoryCard)
+    // Append search history to page
+    ingredientHistoryElement.text(ingredientHistoryItem)
+    ingredientHistoryCard.append(ingredientHistoryElement)
+    searchHistoryField.prepend(ingredientHistoryCard)
 
+}
+
+// Shopping list
+function shoppingList() {
+
+    // shoppingList Arrays
+    let cart = [
+        {
+            cocktailName: null,
+            ingredientName: null,
+        }
+    ]
+
+    let tempObject = []
+
+    // Stores first cocktail entry into local storage
+    if (!localStorage.getItem('shoppingListObject')) {
+
+        // Create empty cart
+        let tempObject = cart
+
+        // Inject user input into tempObject array
+        tempObject[0].cocktailName = $('#cocktail-input').val()
+        
+        // Define key name & stringify tempObject then place into local storage
+        localStorage.setItem('shoppingListObject', [JSON.stringify(tempObject)]
+
+        )
+    }
+
+    // Stores additional entries into local storage
+    else if (tempObject = JSON.parse(localStorage.getItem('shoppingListObject'))) {
+        
+        // Concat arrays to add new shopping list items
+        tempConcat = tempObject.concat(cart)
+        
+        // Declare tempConcat TRUE index position 
+        let x = tempConcat.length - 1
+        
+        // Inject user input into tempObject array
+        tempConcat[x].cocktailName = $('#cocktail-input').val()
+
+        // Define key name & stringify tempObject then place into local storage
+        localStorage.setItem('shoppingListObject', [JSON.stringify(tempConcat)])
     }
 }
+
 
 init()
