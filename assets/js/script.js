@@ -37,7 +37,6 @@ async function fetchImg(recipeCard) {
 
 
             recipeCard.prepend(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
-                // displaySpace.append(recipeCard)
 
             return pixabayElement //this is a placeholder. how are we going to put this element on the page?
         })
@@ -211,8 +210,8 @@ function getIngredient() {
                 nullCard.addClass('card')
                 nullCard.text("Sorry, we don't have any recipes for ingredient!")
                 outputField.append(nullCard)
+
             } else {
-                console.log('here is the data' + data)
                 for (i = 0; i < data.drinks.length; i++) {
                     let cocktailName = data.drinks[i].strDrink
                     let cocktailImage = data.drinks[i].strDrinkThumb
@@ -242,13 +241,10 @@ function getIngredient() {
                             cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
                         recipeCard.append(cocktailIngredientElement)
                     }
-
                     recipeCard.append(clickMessage, cocktailNameElement, cocktailImageElement)
                     outputField.append(recipeCard)
-
                 }
             }
-
         })
 
     console.log(ingredientUrl)
