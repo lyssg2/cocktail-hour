@@ -2,7 +2,7 @@
 let outputField = $('.output-field')
 let iconImage = ''
 let searchHistoryField = $('#search-history')
-
+let badJson = true
 
 
 
@@ -106,7 +106,7 @@ async function fetchImg(recipeCard) { //function to create an icon from a pixaba
 
 
 
-            recipeCard.prepend(pixabayElement) 
+            recipeCard.prepend(pixabayElement)
 
             return pixabayElement
         })
@@ -119,7 +119,7 @@ function getCocktail() {
 
     fetch(cocktailUrl)
         .then(response => {
-            if (response.ok) { 
+            if (response.ok) {
                 return response.json()
             } else if (response.status === 404) { //error catches here
                 return Promise.reject('error 404')
@@ -132,7 +132,7 @@ function getCocktail() {
 
             if (data.drinks === null) { //creates 'not found' message if no cocktail is found
                 let nullCard = $('<div>')
-                nullCard.addClass('card') 
+                nullCard.addClass('card')
                 nullCard.text("Sorry, we don't have any recipes for that drink!")
                 outputField.append(nullCard)
             } else {
@@ -145,14 +145,14 @@ function getCocktail() {
                     let cocktailInstructionsElement = $('<p>')
                     let cocktailImageElement = $('<img>')
                     let recipeCard = $('<div>')
-                    
+
                     recipeCard.addClass('card') //creates recipe card
 
                     cocktailNameElement.text(cocktailName) //populates HTML elements with data
                     cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
                     cocktailImageElement.attr('src', cocktailImage)
                     cocktailImageElement.css('height', '200px') //styles image element
-                    
+
                     fetchImg(recipeCard) //calls 
 
                     recipeCard.append(cocktailNameElement)
@@ -160,7 +160,7 @@ function getCocktail() {
                     for (x = 1; x <= 15; x++) {
                         let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()]
                         let cocktailMeasurement = data.drinks[i]['strMeasure' + x.toString()]
-                        
+
                         let shoppingButton = $('<button>')
                         cocktailIngredientElement = $('<p>')
 
@@ -186,26 +186,27 @@ function getIngredient() {
     let ingredientUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + $('#ingredient-input').val()
     fetch(ingredientUrl)
         .then(response => {
-            try {
-                if (response.ok) {
-                    return response.json()
-                } else if (response.status === 404) {
-                    return Promise.reject('error 404')
-                } else {
-                    return Promise.reject('some other error: ' + response.status)
-                }
-            } catch (error) {
-                let errorMessage = 'Sorry, there is no recipe for that ingredient!'
-                let errorCard = $('<div>')
+            console.log(response)
 
-                errorCard.addClass('card')
-                errorCard.text(errorMessage)
-                outputField.append(errorCard)
-            }
+            if (response.ok) {
+                try {
+                    return response.json()
+                    
+                } catch (error) {
+                    // let errorMessage = 'Sorry, there is no recipe for that ingredient!'
+                    // let errorCard = $('<div>')
+
+                    // errorCard.addClass('card')
+                    // errorCard.text(errorMessage)
+                    // outputField.append(errorCard)
+                }
+
+            } 
+ 
         })
         .then(data => {
-
-            if (data.length === 0) {
+            badJson = false
+            if (data.drinks.length < 1) {
                 let nullCard = $('<div>')
                 nullCard.addClass('card')
                 nullCard.text("Sorry, we don't have any recipes for ingredient!")
@@ -239,19 +240,26 @@ function getIngredient() {
                         cocktailIngredientElement = $('<p>')
                         cocktailIngredientElement.text(cocktailIngredient)
 
-                        if (cocktailMeasurement != null){
+                        if (cocktailMeasurement != null) {
                             cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
-                        recipeCard.append(cocktailIngredientElement)
+                            recipeCard.append(cocktailIngredientElement)
                         }
                     }
 
                     recipeCard.append(clickMessage, cocktailNameElement, cocktailImageElement)
                     outputField.append(recipeCard)
-
                 }
             }
 
         })
+         if (badJson) {
+                        let errorMessage = 'Sorry, there is no recipe for that ingredient!'
+                        let errorCard = $('<div>')
+
+                        errorCard.addClass('card')
+                        errorCard.text(errorMessage)
+                        outputField.append(errorCard)
+                    }
 
     console.log(ingredientUrl)
 }
