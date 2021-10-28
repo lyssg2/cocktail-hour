@@ -44,7 +44,7 @@ async function fetchImg(recipeCard) {
 }
 
 //input button for cocktails
-$('#cocktail-input-button').click(function(event) {
+$('#cocktail-input-button').click(function (event) {
     if ($('#cocktail-input').val()) {
         event.preventDefault()
         console.log('cocktail button clicked')
@@ -59,7 +59,7 @@ $('#cocktail-input-button').click(function(event) {
 })
 
 //enter key press event
-$(document).keypress(function(event) {
+$(document).keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if (keycode == '13') {
         if ($('#cocktail-input').val()) {
@@ -78,7 +78,7 @@ $(document).keypress(function(event) {
 })
 
 //input button for ingredients
-$('#ingredient-input-button').click(function(event) {
+$('#ingredient-input-button').click(function (event) {
     event.preventDefault()
     console.log('ingredient button clicked')
     // $("#ingredient-input").value = $(this).text()
@@ -89,7 +89,7 @@ $('#ingredient-input-button').click(function(event) {
 })
 
 //click event to get recipes from ingredient cards
-outputField.on('click', '.cocktail-link', function() {
+outputField.on('click', '.cocktail-link', function () {
     document.getElementById("cocktail-input").value = $(this).text()
     outputField.text('')
     getCocktail()
@@ -99,7 +99,7 @@ outputField.on('click', '.cocktail-link', function() {
 })
 
 //click event to get recipes from ingredient cards
-searchHistoryField.on('click', '.cocktail-link', function() {
+searchHistoryField.on('click', '.cocktail-link', function () {
     document.getElementById("cocktail-input").value = $(this).text()
     outputField.text('')
     getCocktail()
@@ -107,7 +107,7 @@ searchHistoryField.on('click', '.cocktail-link', function() {
 
 })
 
-searchHistoryField.on('click', '.ingredient-link', function() {
+searchHistoryField.on('click', '.ingredient-link', function () {
     document.getElementById("ingredient-input").value = $(this).text()
     outputField.text('')
     getIngredient()
@@ -151,12 +151,14 @@ function getCocktail() {
                     let cocktailInstructionsElement = $('<p>')
                     let cocktailImageElement = $('<img>')
                     let recipeCard = $('<div>')
+                    
 
                     recipeCard.addClass('card')
                     cocktailNameElement.text(cocktailName)
                     cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
                     cocktailImageElement.attr('src', cocktailImage)
                     cocktailImageElement.css('height', '200px')
+                    
 
                     // recipeCard.addClass('card')
 
@@ -167,15 +169,22 @@ function getCocktail() {
                     for (x = 1; x <= 15; x++) {
                         let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()]
                         let cocktailMeasurement = data.drinks[i]['strMeasure' + x.toString()]
+                        
+                        let shoppingButton = $('<button>')
                         cocktailIngredientElement = $('<p>')
-                        cocktailIngredientElement.text(cocktailIngredient)
 
-                        if (cocktailMeasurement != null)
+                        cocktailIngredientElement.text(cocktailIngredient)
+                        shoppingButton.addClass('btn waves-effect waves-light btn-small deep-orange lighten-1 inline')
+                        shoppingButton.text('Add to Shopping List')
+
+                        if (cocktailMeasurement != null) {
                             cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
-                        recipeCard.append(cocktailIngredientElement)
+                            recipeCard.append(cocktailIngredientElement, shoppingButton)
+                            
+                        }
+                        recipeCard.append(cocktailInstructionsElement, cocktailImageElement)
+                        outputField.append(recipeCard)
                     }
-                    recipeCard.append(cocktailInstructionsElement, cocktailImageElement)
-                    outputField.append(recipeCard)
                 }
             }
         })
@@ -222,12 +231,14 @@ function getIngredient() {
                     let cocktailImageElement = $('<img>')
                     let recipeCard = $('<div>')
 
+
                     cocktailNameElement.text(cocktailName)
                     clickMessage.text('Click Name For Recipe!')
                     cocktailNameElement.addClass('cocktail-link')
                     cocktailImageElement.attr('src', cocktailImage)
                     cocktailImageElement.css('height', '200px')
                     recipeCard.addClass('card')
+
                     fetchImg(recipeCard)
 
                     recipeCard.append(cocktailNameElement)
@@ -268,12 +279,15 @@ function init() {
         $('#cocktail-input').val(initSearch)
         outputField.text('')
         getCocktail()
+        cocktailHistory()
         $('#cocktail-input').val('')
-    } else if (initIngredient) {}
-    $('#ingredient-input').val(initIngredient)
-    outputField.text('')
-    getIngredient()
-    $('#ingredient-input').val('')
+    } else if (initIngredient) {
+        $('#ingredient-input').val(initIngredient)
+        outputField.text('')
+        getIngredient()
+        ingredientHistory()
+        $('#ingredient-input').val('')
+    }
 }
 
 // Cocktail search history function
@@ -287,7 +301,7 @@ function cocktailHistory() {
         let xinput = $('#cocktail-input').val()
         let key = localStorage.key(i)
         let value = localStorage.getItem('cocktail_search_' + i)
-        if (value === xinput) {}
+        if (value === xinput) { }
     }
 
     // Write to storage user input into storage
@@ -295,7 +309,7 @@ function cocktailHistory() {
         let x = localStorage.length
         localStorage.setItem('cocktail_search_' + x++, $('#cocktail-input').val())
 
-        let cocktailHistoryItem = $('#cocktail-input').val()
+        let cocktailHistoryItem = capitalize($('#cocktail-input').val())
         let cocktailHistoryElement = $('<h5>')
 
         let cocktailHistoryCard = $('<div>')
@@ -324,14 +338,14 @@ function ingredientHistory() {
         let xinput = $('#ingredient-input').val()
         let key = localStorage.key(y)
         let value = localStorage.getItem('ingredient_search_' + y)
-        if (value === xinput) {}
+        if (value === xinput) { }
     }
 
     // Write to storage user input into storage
     if (localStorage.getItem(key) != 0) {
         let z = localStorage.length
         localStorage.setItem('ingredient_search_' + z++, $('#ingredient-input').val())
-        let ingredientHistoryItem = $('#ingredient-input').val()
+        let ingredientHistoryItem = capitalize($('#ingredient-input').val())
         let ingredientHistoryElement = $('<h5>')
 
         let ingredientHistoryCard = $('<div>')
@@ -341,7 +355,7 @@ function ingredientHistory() {
         ingredientHistoryCard.addClass('s12')
         ingredientHistoryElement.addClass('ingredient-link')
 
-        ingredientHistoryElement.text(ingredientHistoryItem) 
+        ingredientHistoryElement.text(ingredientHistoryItem)
 
         ingredientHistoryCard.append(ingredientHistoryElement)
         searchHistoryField.prepend(ingredientHistoryCard)
