@@ -2,30 +2,34 @@
 let outputField = $('.output-field')
 let iconImage = ''
 let searchHistoryField = $('#search-history')
+
+// Shopping list vars 
+let listName
+let listItem
+
 async function fetchImg(recipeCard) {
 
-    console.log($('#cocktail-input').val() + ' fetchimg cocktail input')
+
     var pixabayUrl = "https://pixabay.com/api/?q=" + iconImage + "&key=23999957-6f13ba77eee3721df01fe7a9f"
     await fetch(pixabayUrl) //fetch request for pixabay sticker
         .then(response => {
             if (response.ok) {
-                console.log(pixabayUrl)
+
                 return response.json()
             } else if (response.status === 404) { //404 error catch
                 console.log('Error: 404. Image URL not found' + response.status)
                 return Promise.reject('error 404')
             } else {
-                console.log('Error' + response.status) //other error catch
+
                 return Promise.reject('error: ' + response.status)
             }
         })
         .then(data => {
             var randomNum = Math.floor(Math.random() * 20).toString() //random num to pick out of 50 pixabay stickers
-            console.log(randomNum)
+
             var pixabayImage = data.hits[randomNum].webformatURL //target a random pixabay sticker
             var hits = data.hits[0]
-            console.log(pixabayImage)
-            console.log(hits)
+
 
             var pixabayElement = $('<img>') //creates pixabay html element
 
@@ -37,7 +41,7 @@ async function fetchImg(recipeCard) {
 
 
             recipeCard.prepend(pixabayElement) //this is a placeholder. how are we going to put this element on the page?
-                // displaySpace.append(recipeCard)
+            // displaySpace.append(recipeCard)
 
             return pixabayElement //this is a placeholder. how are we going to put this element on the page?
         })
@@ -119,10 +123,6 @@ searchHistoryField.on('click', '.ingredient-link', function () {
 function getCocktail() {
     iconImage = $('#cocktail-input').val()
     let cocktailUrl = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + $('#cocktail-input').val()
-    console.log($('#cocktail-input.val') + ' cocktail input for getcocktail')
-    console.log(cocktailUrl)
-    console.log(fetchImg())
-
     fetch(cocktailUrl)
         .then(response => {
             if (response.ok) {
@@ -134,7 +134,7 @@ function getCocktail() {
             }
         })
         .then(data => {
-            console.log(data)
+
 
             if (data.drinks === null) {
                 let nullCard = $('<div>')
@@ -151,14 +151,14 @@ function getCocktail() {
                     let cocktailInstructionsElement = $('<p>')
                     let cocktailImageElement = $('<img>')
                     let recipeCard = $('<div>')
-                    
+
 
                     recipeCard.addClass('card')
                     cocktailNameElement.text(cocktailName)
                     cocktailInstructionsElement.text('Instructions: ' + cocktailInstructions)
                     cocktailImageElement.attr('src', cocktailImage)
                     cocktailImageElement.css('height', '200px')
-                    
+
 
                     // recipeCard.addClass('card')
 
@@ -169,25 +169,41 @@ function getCocktail() {
                     for (x = 1; x <= 15; x++) {
                         let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()]
                         let cocktailMeasurement = data.drinks[i]['strMeasure' + x.toString()]
-                        
+
                         let shoppingButton = $('<button>')
                         cocktailIngredientElement = $('<p>')
 
                         cocktailIngredientElement.text(cocktailIngredient)
                         shoppingButton.addClass('btn waves-effect waves-light btn-small deep-orange lighten-1 inline')
+                        $(shoppingButton).attr('cocktail', cocktailName)
+                        $(shoppingButton).attr('ingredient', cocktailIngredient + ": " + cocktailMeasurement)
                         shoppingButton.text('Add to Shopping List')
 
                         if (cocktailMeasurement != null) {
                             cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
                             recipeCard.append(cocktailIngredientElement, shoppingButton)
-                            
+
                         }
                         recipeCard.append(cocktailInstructionsElement, cocktailImageElement)
                         outputField.append(recipeCard)
+
+                        // Click Event to write to shopping list
+                        shoppingButton.on('click', function () {
+
+                            // Update shopping list global vars
+                            listName = $(this).attr('cocktail')
+                            listItem = $(this).attr('ingredient')
+
+                            shoppingList()
+
+                        })
+
                     }
+
                 }
             }
         })
+
 
 }
 
@@ -298,23 +314,21 @@ function cocktailHistory() {
 
     // Check for existing local storage object and create if none.
     if (!localStorage.getItem('cocktailObject')) {
-        console.log('Local Storage not cocktail')
+
         localStorage.setItem('cocktailObject', [JSON.stringify({ cocktailSearch: [] })])
 
     }
 
     // Pull search history into tempObject
     let tempObject = JSON.parse(localStorage.getItem('cocktailObject'))
-    console.log(tempObject.cocktailSearch.length)
 
     // Condition to check for duplicate entries
     for (let z = 0; z < tempObject.cocktailSearch.length; z++) {
-        console.log('hello')
 
         let value = tempObject.cocktailSearch[z]
-        console.log(value)
+
         if (value === uInput) {
-            console.log('same')
+
             return
         }
     }
@@ -348,23 +362,21 @@ function ingredientHistory() {
 
     // Check for existing local storage object and create if none.
     if (!localStorage.getItem('ingredientObject')) {
-        console.log('Local Storage not ingredient')
+
         localStorage.setItem('ingredientObject', [JSON.stringify({ ingredientSearch: [] })])
 
     }
 
     // Pull search history into tempObject
     let tempObject = JSON.parse(localStorage.getItem('ingredientObject'))
-    console.log(tempObject.ingredientSearch.length)
 
     // Condition to check for duplicate entries
     for (let z = 0; z < tempObject.ingredientSearch.length; z++) {
-        console.log('hello')
 
         let value = tempObject.ingredientSearch[z]
-        console.log(value)
+
         if (value === uInput) {
-            console.log('same')
+
             return
         }
     }
@@ -395,6 +407,9 @@ function ingredientHistory() {
 // Shopping list
 function shoppingList() {
 
+    console.log(listName)
+    console.log(listItem)
+
     // shoppingList Arrays
     let cart = [
         {
@@ -412,8 +427,9 @@ function shoppingList() {
         let tempObject = cart
 
         // Inject user input into tempObject array
-        tempObject[0].cocktailName = $('#cocktail-input').val()
-        
+        tempObject[0].cocktailName = listName
+        tempObject[0].ingredientName = listItem
+
         // Define key name & stringify tempObject then place into local storage
         localStorage.setItem('shoppingListObject', [JSON.stringify(tempObject)]
 
@@ -422,20 +438,34 @@ function shoppingList() {
 
     // Stores additional entries into local storage
     else if (tempObject = JSON.parse(localStorage.getItem('shoppingListObject'))) {
-        
-        // Concat arrays to add new shopping list items
-        tempConcat = tempObject.concat(cart)
-        
-        // Declare tempConcat TRUE index position 
-        let x = tempConcat.length - 1
-        
-        // Inject user input into tempObject array
-        tempConcat[x].cocktailName = $('#cocktail-input').val()
 
-        // Define key name & stringify tempObject then place into local storage
-        localStorage.setItem('shoppingListObject', [JSON.stringify(tempConcat)])
+        let y = undefined
+        for (y in tempObject) {
+
+            // Check for duplicate ingredient
+            if (z = tempObject[y].cocktailName, z === listName) {
+
+                for (a in tempObject[y].ingredientName) {
+                    if (b = tempObject[y].ingredientName, b === listItem) {
+                        return
+                    } 
+                }
+
+            }
+        }
     }
-}
+    // Concat arrays to add new shopping list items
+    tempConcat = tempObject.concat(cart)
 
+    // Declare tempConcat TRUE index position 
+    let x = tempConcat.length - 1
+
+    // Inject user input into tempObject array
+    tempConcat[x].cocktailName = listName
+    tempConcat[x].ingredientName = listItem
+
+    // Define key name & stringify tempObject then place into local storage
+    localStorage.setItem('shoppingListObject', [JSON.stringify(tempConcat)])
+}
 
 init()
