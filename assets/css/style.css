@@ -146,6 +146,10 @@ ul {
     border: 2px solid;
 }
 
+.about-text {
+    color: black;
+}
+
 .ingredient-link::before {
     content: "";
     position: absolute;
