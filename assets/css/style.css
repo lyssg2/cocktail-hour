@@ -146,6 +146,14 @@ ul {
     border: 2px solid;
 }
 
+.about-text {
+    color: black;
+}
+
+.about-cards {
+    margin-bottom: 100px;
+}
+
 .ingredient-link::before {
     content: "";
     position: absolute;
