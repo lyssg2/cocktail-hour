@@ -40,7 +40,7 @@ The app can be found here: https://lyssg2.github.io/cocktail-hour/
 
 [Justin Meredith](https://justinm099.github.io/justin-meredith-portfolio/)
 
-[Robert Sternik](hhttps://rsternik.github.io/Homework_Portfolio/)
+[Robert Sternik](https://rsternik.github.io/Homework_Portfolio/)
 
 [Megan Teubner-Foster](https://mteubnerfoster.github.io/mtf-portfolio)
 
