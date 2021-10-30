@@ -155,30 +155,31 @@ function getCocktail() {
 
                     cocktailImageElement.css('height', '200px') //styles image element
 
-                    fetchImg(recipeCard) //calls 
+                    fetchImg(recipeCard) //calls pixabay function, puts pixabay icon on page
 
 
-                    recipeCard.append(cocktailNameElement)
+                    recipeCard.append(cocktailNameElement)  //puts name on the page
 
-                    for (x = 1; x <= 15; x++) {
+                    for (x = 1; x <= 15; x++) { //generates each ingredient & its measurement
                         let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()]
                         let cocktailMeasurement = data.drinks[i]['strMeasure' + x.toString()]
 
                         let shoppingButton = $('<button>')
-                        cocktailIngredientElement = $('<p>')
 
-                        cocktailIngredientElement.text(cocktailIngredient)
+                        cocktailIngredientElement = $('<p>') //creates ingredient HTML element
+
+                        cocktailIngredientElement.text(cocktailIngredient)//puts in 
                         shoppingButton.addClass('btn waves-effect waves-light btn-small deep-orange lighten-1 inline')
                         $(shoppingButton).attr('cocktail', cocktailName)
                         $(shoppingButton).attr('ingredient', cocktailIngredient + ": " + cocktailMeasurement)
                         shoppingButton.text('Add to Shopping List')
 
-                        if (cocktailMeasurement) {
+                        if (cocktailMeasurement) { //checks for cocktail measurement data & puts it into HTML element if so
                             cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
                             recipeCard.append(cocktailIngredientElement)
                         }
-                        recipeCard.append(cocktailInstructionsElement, cocktailImageElement)
-                        outputField.append(recipeCard)
+                        recipeCard.append(cocktailInstructionsElement, cocktailImageElement) //appends cocktail instructions & image
+                        outputField.append(recipeCard) //puts recipe card on the page
 
                         // Click Event to write to shopping list
                         shoppingButton.on('click', function () {
@@ -202,7 +203,7 @@ function getCocktail() {
 
 //call & display function for ingredients
 function getIngredient() {
-    let ingredientUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + $('#ingredient-input').val()
+    let ingredientUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + $('#ingredient-input').val() //api call for ingredient search
     fetch(ingredientUrl)
         .then(response => {
             console.log(response)
@@ -212,7 +213,7 @@ function getIngredient() {
                     return response.json()
 
                 } catch (error) {
-                    let errorMessage = 'Sorry, there is no recipe for that ingredient!'
+                    let errorMessage = 'Sorry, there is no recipe for that ingredient!' //error catch
                     let errorCard = $('<div>')
 
                     errorCard.addClass('card')
@@ -228,21 +229,21 @@ function getIngredient() {
             if (data.drinks.length < 1) {
                 let nullCard = $('<div>')
                 nullCard.addClass('card')
-                nullCard.text("Sorry, we don't have any recipes for ingredient!")
+                nullCard.text("Sorry, we don't have any recipes for ingredient!") //error call to fix a specific syntax error that comes from the cocktail db when there's no search results for ingredient
                 outputField.append(nullCard)
 
             } else {
-                for (i = 0; i < data.drinks.length; i++) {
-                    let cocktailName = data.drinks[i].strDrink
-                    let cocktailImage = data.drinks[i].strDrinkThumb
+                for (i = 0; i < data.drinks.length; i++) { 
+                    let cocktailName = data.drinks[i].strDrink //gets data
+                    let cocktailImage = data.drinks[i].strDrinkThumb 
 
-                    let cocktailNameElement = $('<h5>')
+                    let cocktailNameElement = $('<h5>') //creates HTML elements
                     let clickMessage = $('<p>')
                     let cocktailImageElement = $('<img>')
                     let recipeCard = $('<div>')
 
 
-                    cocktailNameElement.text(cocktailName)
+                    cocktailNameElement.text(cocktailName) //populates elements with data & styles
                     clickMessage.text('Click Name For Recipe!')
                     cocktailNameElement.addClass('cocktail-link')
                     cocktailImageElement.attr('src', cocktailImage)
@@ -251,40 +252,40 @@ function getIngredient() {
 
                     fetchImg(recipeCard)
 
-                    recipeCard.append(cocktailNameElement)
+                    recipeCard.append(cocktailNameElement) //puts name on page
 
                     for (x = 1; x <= 15; x++) {
-                        let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()]
+                        let cocktailIngredient = data.drinks[i]['strIngredient' + x.toString()] //gets ingredients and measurements data if applicable
                         let cocktailMeasurement = data.drinks[i]['strMeasure' + x.toString()]
-                        cocktailIngredientElement = $('<p>')
-                        cocktailIngredientElement.text(cocktailIngredient)
+                        cocktailIngredientElement = $('<p>') //creates ingredient html element
+                        cocktailIngredientElement.text(cocktailIngredient) //puts data into html element
 
                         if (cocktailMeasurement != null) {
-                            cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
-                            recipeCard.append(cocktailIngredientElement)
+                            cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement) //combines ingredient & measurement data
+                            recipeCard.append(cocktailIngredientElement) //puts it on page
                         }
                     }
 
-                    recipeCard.append(clickMessage, cocktailNameElement, cocktailImageElement)
-                    outputField.append(recipeCard)
+                    recipeCard.append(clickMessage, cocktailNameElement, cocktailImageElement) //puts other elements on card
+                    outputField.append(recipeCard) //puts card on page
                 }
             }
 
         })
-    setTimeout(fixBadJson, 1000)
-    badJson = true
+    setTimeout(fixBadJson, 1000) //workaround to fix bad data from API
+    badJson = true 
 
 
     console.log(ingredientUrl)
 }
 
-//this function capitalizes words. needs to be updated to do each word in a title (probably with .split() and a for loop to iterate through each word and .toUpperCase() it, then .join() it back together)
+//this function capitalizes words. 
 function capitalize(word) {
     let lower = word.toLowerCase()
     return word.charAt(0).toUpperCase() + lower.slice(1)
 }
 
-function init() {
+function init() { //initial state, brings searches in from landing page through local storage.
     let initSearch = JSON.parse(localStorage.getItem('initSearch'))
     let initIngredient = JSON.parse(localStorage.getItem('initIngredient'))
 
@@ -466,9 +467,9 @@ function shoppingList() {
     localStorage.setItem('shoppingListObject', [JSON.stringify(tempConcat)])
 }
 
-init()
+init() //init call
 
-function fixBadJson() {
+function fixBadJson() { //this is a workaround to get the error message for a no ingredient response. the api data came back in a non-JSON format, giving a syntax error, so we needed a workaround.
     if (badJson) {
         let errorMessage = 'Sorry, there is no recipe for that ingredient!'
         let errorCard = $('<div>')
