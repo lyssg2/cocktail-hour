@@ -319,16 +319,16 @@ function cocktailHistory() {
     // Pull search history into tempObject
     let tempObject = JSON.parse(localStorage.getItem('cocktailObject'))
 
-    // Condition to check for duplicate entries
-    for (let z = 0; z < tempObject.cocktailSearch.length; z++) {
+    // Condition to check for duplicate entries (disabled for time being)
+    // for (let z = 0; z < tempObject.cocktailSearch.length; z++) {
 
-        let value = tempObject.cocktailSearch[z]
+    //     let value = tempObject.cocktailSearch[z]
 
-        if (value === uInput) {
+    //     if (value === uInput) {
 
-            return
-        }
-    }
+    //         return
+    //     }
+    // }
 
     // Inject user input into tempObject
     tempObject.cocktailSearch.push($('#cocktail-input').val())
@@ -367,16 +367,16 @@ function ingredientHistory() {
     // Pull search history into tempObject
     let tempObject = JSON.parse(localStorage.getItem('ingredientObject'))
 
-    // Condition to check for duplicate entries
-    for (let z = 0; z < tempObject.ingredientSearch.length; z++) {
+    // Condition to check for duplicate entries (Disabled for time being)
+    // for (let z = 0; z < tempObject.ingredientSearch.length; z++) {
 
-        let value = tempObject.ingredientSearch[z]
+    //     let value = tempObject.ingredientSearch[z]
 
-        if (value === uInput) {
+    //     if (value === uInput) {
 
-            return
-        }
-    }
+    //         return
+    //     }
+    // }
 
     // Inject user input into tempObject
     tempObject.ingredientSearch.push($('#ingredient-input').val())
