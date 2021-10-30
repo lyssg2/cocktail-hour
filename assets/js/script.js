@@ -212,12 +212,12 @@ function getIngredient() {
                     return response.json()
 
                 } catch (error) {
-                    // let errorMessage = 'Sorry, there is no recipe for that ingredient!'
-                    // let errorCard = $('<div>')
+                    let errorMessage = 'Sorry, there is no recipe for that ingredient!'
+                    let errorCard = $('<div>')
 
-                    // errorCard.addClass('card')
-                    // errorCard.text(errorMessage)
-                    // outputField.append(errorCard)
+                    errorCard.addClass('card')
+                    errorCard.text(errorMessage)
+                    outputField.append(errorCard)
                 }
 
             }
@@ -271,7 +271,8 @@ function getIngredient() {
             }
 
         })
-    setTimeout(fixBadJson, 1500)
+    setTimeout(fixBadJson, 1000)
+    badJson = true
 
 
     console.log(ingredientUrl)
@@ -474,5 +475,6 @@ function fixBadJson() {
         errorCard.addClass('card')
         errorCard.text(errorMessage)
         outputField.append(errorCard)
+        
     }
 }
