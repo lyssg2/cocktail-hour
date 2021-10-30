@@ -4,9 +4,20 @@ The purpose of this project is to help out the fellow cocktail lover and newbie 
 
 ## User Story
 
-AS a cocktail lover
-I WANT to find a cocktail recipe
-SO THAT I can get the ingredients needed and recipe to make a cocktail in a pinch
+* AS a cocktail lover
+* I WANT to find a cocktail recipe
+* SO THAT I can get the ingredients needed and recipe to make a cocktail in a pinch
+
+* WHEN I enter a cocktail into the cocktail search field
+* THEN I see a list of cocktails with their ingredients
+* WHEN I enter an ingredient into the ingredient search field
+* THEN I see a list of cocktails I can make with said ingredient
+* WHEN I click on the cocktail
+* THEN I am given the recipe for said cocktail
+* WHEN I input anything into the search fields
+* THEN my searches are kept in the search history
+* WHEN I click on my search history
+* THEN I can go back to a previous search
 
 ## Description
 
