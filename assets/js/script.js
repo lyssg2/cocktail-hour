@@ -175,7 +175,7 @@ function getCocktail() {
 
                         if (cocktailMeasurement) {
                             cocktailIngredientElement.text(cocktailIngredient + ": " + cocktailMeasurement)
-                            recipeCard.append(cocktailIngredientElement, shoppingButton)
+                            recipeCard.append(cocktailIngredientElement)
                         }
                         recipeCard.append(cocktailInstructionsElement, cocktailImageElement)
                         outputField.append(recipeCard)
