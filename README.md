@@ -2,6 +2,12 @@
 
 The purpose of this project is to help out the fellow cocktail lover and newbie mixer alike find cocktail recipes in a pinch. Using the CocktailDB API and Pixabay API, the user is given recipes and instructions of how to make cocktails, accompanied with a pretty picture for reference. 
 
+## User Story
+
+AS a cocktail lover
+I WANT to find a cocktail recipe
+SO THAT I can get the ingredients needed and recipe to make a cocktail in a pinch
+
 ## Description
 
 If the user has an idea of the type of cocktail they would like to make, they can type the name of said drink in the input and they are then led to a page of recipes as well as instructions on how to mix it up. If the user has an ingredient they would like to make a cocktail with, they are given drinks they can make with said ingredient. Each search is then recorded in the local storage, and inputted on the page as search history buttons for the user to reference later. Cheers!
