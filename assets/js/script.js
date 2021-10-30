@@ -337,6 +337,7 @@ function cocktailHistory() {
     localStorage.setItem('cocktailObject', [JSON.stringify({ cocktailSearch: tempObject.cocktailSearch })])
 
     // Create and define search history elements
+    let cocktailHistoryItem = capitalize($('#cocktail-input').val())
     let cocktailHistoryElement = $('<h5>')
     let cocktailHistoryCard = $('<div>')
     cocktailHistoryCard.addClass('card')
@@ -344,7 +345,7 @@ function cocktailHistory() {
     cocktailHistoryCard.addClass('col')
     cocktailHistoryCard.addClass('s12')
     cocktailHistoryElement.addClass('cocktail-link')
-    cocktailHistoryElement.text(uInput)
+    cocktailHistoryElement.text(cocktailHistoryItem)
 
     //Append search history to page 
     cocktailHistoryCard.append(cocktailHistoryElement)
