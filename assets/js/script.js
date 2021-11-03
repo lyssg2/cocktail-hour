@@ -414,14 +414,12 @@ function shoppingList() {
         }
     ]
 
-    // Local arrays
     let tempObject = []
     let newObject = []
+    let tempConcat = []
 
     // Local Vars 
-    let currentIngredients
-
-    checkObject = localStorage.getItem('shoppingListObject')
+    let currentIngredients = []
 
     // Stores first cocktail entry into local storage
     if (!localStorage.getItem('shoppingListObject', 'ingredientName')) {
@@ -434,28 +432,55 @@ function shoppingList() {
         return
     }
 
-    // Stores additional entries into local storage
     tempObject = JSON.parse(localStorage.getItem('shoppingListObject'))
-    console.log(tempObject)
 
-  
-    // Check for duplicate ingredeint
-    for (let x in tempObject[0].ingredientName) {
+    for (y in tempObject) {
 
-        //Inject current ingredients into newObject array
-        currentIngredients = JSON.stringify(tempObject[0].ingredientName[x]).replace(/^"(.+(?="$))"$/, '$1')
-        newObject.push(currentIngredients)
-        x++
+        if (tempObject[y].cocktailName == listName) {
+            // Stores additional entries into local storage
+
+            // Check for duplicate ingredeint
+            for (let x in tempObject[y].ingredientName) {
+
+                if (tempObject[y].ingredientName[x] == listItem) {
+                    console.log('same')
+                    return
+                }
+
+                //Inject current ingredients into newObject array
+                currentIngredients = JSON.stringify(tempObject[y].ingredientName[x]).replace(/^"(.+(?="$))"$/, '$1')
+                console.log(currentIngredients)
+                newObject.push(currentIngredients)
+
+            }
+
+            // Inject new ingredient
+            newObject.push(listItem)
+
+            // Push object back into local storage
+            tempObject[y].ingredientName = newObject
+            localStorage.setItem('shoppingListObject', [JSON.stringify(tempObject)])
+
+            return
+        }
+
     }
+    // Concat arrays to add new shopping list items
+    tempConcat = tempObject.concat(cart)
 
-    // Inject new ingredient
-    newObject.push(listItem)
+    // Declare tempConcat TRUE index position 
+    let z = tempConcat.length - 1
 
-    // Push object back into local storage
-    tempObject[0].ingredientName = newObject
-    localStorage.setItem('shoppingListObject', [JSON.stringify(tempObject)])
+    // Inject user input into tempObject array
+    tempConcat[z].cocktailName = listName
+    tempConcat[z].ingredientName = [listItem]
 
+    // Define key name & stringify tempObject then place into local storage
+    localStorage.setItem('shoppingListObject', [JSON.stringify(tempConcat)])
+
+    return
 }
+
 
 init()
 
