@@ -66,7 +66,7 @@ function getShoppingList() {
                             // Push back into local storage
                             localStorage.setItem('shoppingListObject', [JSON.stringify(tempObject)])
                             location.reload($('#' + [x]))
-
+                            
                             // Condition to remove cocktail card element if no ingredients exist
                             if (tempObject[a].ingredientName.length == 0) {
 
@@ -76,7 +76,7 @@ function getShoppingList() {
 
                                 // Push back into local storage
                                 localStorage.setItem('shoppingListObject', [JSON.stringify(tempObject)])
-                                return
+                                
                             }
                         }
                     }
@@ -97,8 +97,9 @@ function getShoppingList() {
 
         // Append recipeCard to page
         outputEl.append(recipeCard)
-
+        
     }
+    
     return
     
 }
