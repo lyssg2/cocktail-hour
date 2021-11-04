@@ -180,6 +180,6 @@ ul {
     transform: translateY(0);
 }
 
-.large material-icons{
+.large.material-icons{
     display: block;
 }
