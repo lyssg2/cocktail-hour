@@ -179,3 +179,7 @@ ul {
     -webkit-transform: translateY(0);
     transform: translateY(0);
 }
+
+.large material-icons{
+    display: block;
+}
